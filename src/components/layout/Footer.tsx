@@ -26,24 +26,19 @@ const Footer = () => {
                 alt="Logo"
                 className="w-8 h-8 rounded-lg object-cover"
               />
-              <span className="hidden sm:block">Đạt</span>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Lập trình viên FrontEnd chuyên nghiệp, kết hợp nghệ thuật và công
-              nghệ để tạo nên những sản phẩm web mang dấu ấn riêng.
-            </p>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <span>nguyengiadat2k03@gmail.com</span>
+                <span>damphu207@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4" />
-                <span>0368764803</span>
+                <span>0397706411</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4" />
-                <span>Hai Bà Trưng, Hà Nội</span>
+                <span>Toà nhà BMC Số 5 Mạc Thị Bưởi, Vĩnh Tuy, Hai Bà Trưng, Hà Nội, Việt Nam</span>
               </div>
             </div>
           </div>
@@ -155,7 +150,7 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex space-x-3">
               <a
-                href="https://www.facebook.com/nguyen.gia.at.773139"
+                href="https://www.facebook.com/ninjaai.rocketglobal"
                 aria-label="Facebook profile"
                 className="w-8 h-8 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all"
               >
@@ -196,7 +191,7 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-border bg-gray-200 text-center md:text-left">
           <div className="flex flex-col md:flex-row justify-around items-center gap-2 p-4">
             <p className="block text-muted-foreground text-sm">
-              Nguyễn Gia Đạt. Tất cả quyền được bảo lưu.
+              Đàm Hữu Phú. Tất cả quyền được bảo lưu.
             </p>
             <p className="block text-muted-foreground text-sm">
               Thiết kế với ❤️ bởi Ninja AI Team

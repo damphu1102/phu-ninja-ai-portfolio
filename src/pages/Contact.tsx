@@ -60,12 +60,9 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">Email</h3>
-                  <p className="text-muted-foreground">dat.nguyen@example.com</p>
+                  <p className="text-muted-foreground">damphu207@gmail.com</p>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Phương thức liên hệ chính. Tôi thường phản hồi trong vòng 24 giờ.
-              </p>
             </Card>
 
             <Card className="p-6 bg-gradient-card border-none card-hover">
@@ -78,9 +75,6 @@ const Contact = () => {
                   <p className="text-muted-foreground">+84 123 456 789</p>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Có thể liên hệ qua Zalo hoặc WhatsApp cho các vấn đề khẩn cấp.
-              </p>
             </Card>
 
             <Card className="p-6 bg-gradient-card border-none card-hover">
@@ -89,13 +83,10 @@ const Contact = () => {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Địa chỉ</h3>
-                  <p className="text-muted-foreground">Hà Nội, Việt Nam</p>
+                  <h3 className="font-semibold text-foreground">Địa chỉ văn phòng</h3>
+                  <p className="text-muted-foreground">Toà nhà BMC Số 5 Mạc Thị Bưởi, Vĩnh Tuy, Hai Bà Trưng, Hà Nội, Việt Nam</p>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Có thể hẹn gặp trực tiếp tại các quán cafe hoặc coworking space.
-              </p>
             </Card>
 
             <Card className="p-6 bg-gradient-hero border-none">
@@ -117,7 +108,7 @@ const Contact = () => {
             <Card className="p-8 bg-gradient-card border-none shadow-lg">
               <div className="flex items-center gap-3 mb-6">
                 <MessageCircle className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold text-foreground">Gửi tin nhắn</h2>
+                <h2 className="text-2xl font-bold text-foreground">Yêu cầu cho tôi</h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -186,7 +177,7 @@ const Contact = () => {
                   size="lg"
                   className="w-full md:w-auto bg-gradient-primary text-white hover:bg-primary-dark btn-scale btn-ripple shadow-green"
                 >
-                  Gửi tin nhắn
+                  Gửi
                   <Send className="w-5 h-5 ml-2" />
                 </Button>
               </form>

@@ -132,7 +132,7 @@ const Education = () => {
                 <Award className="w-12 h-12 text-secondary-dark mx-auto mb-4" />
               ),
               title: "Giải thưởng",
-              desc: "Đạt được nhiều thành tích học tập và hoạt động ngoại khóa trong suốt quá trình học tại trường",
+              desc: "Phú được nhiều thành tích học tập và hoạt động ngoại khóa trong suốt quá trình học tại trường",
               badges: [
                 "Sinh viên giỏi 4 năm liên tiếp",
                 "Giải nhất cuộc thi lập trình",

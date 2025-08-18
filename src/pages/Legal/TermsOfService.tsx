@@ -84,7 +84,7 @@ const TermsOfService = () => {
                     <h3 className="text-lg font-semibold text-foreground mb-2">5.1 Nội dung của chúng tôi</h3>
                     <p className="text-muted-foreground">
                       Tất cả nội dung trên website bao gồm văn bản, hình ảnh, code, thiết kế và 
-                      logo đều thuộc quyền sở hữu của Nguyễn Gia Đạt và được bảo vệ bởi luật bản quyền.
+                      logo đều thuộc quyền sở hữu của Đàm Hữu Phú và được bảo vệ bởi luật bản quyền.
                     </p>
                   </div>
                   

@@ -55,7 +55,7 @@ const PrivacyPolicy = () => {
                     Chính sách bảo mật này mô tả cách chúng tôi thu thập, sử
                     dụng, và bảo vệ thông tin cá nhân của bạn khi bạn sử dụng
                     website, ứng dụng và các dịch vụ do{" "}
-                    <strong>Nguyễn Gia Đạt</strong> cung cấp.
+                    <strong>Đàm Hữu Phú</strong> cung cấp.
                   </p>
                 </motion.section>
 

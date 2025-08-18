@@ -16,9 +16,9 @@ import {
   Mail,
   MapPin,
   Heart,
+  Phone,
+  PhoneCall,
 } from "lucide-react";
-import heroPortrait from "@/assets/áo mu.jpg";
-import ninjaAIBanner from "@/assets/ninja-ai-banner.jpg";
 
 const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -47,9 +47,9 @@ const Index = () => {
   const strengths = [
     {
       icon: <Code className="w-8 h-8 text-primary" />,
-      title: "FrontEnd Developer",
+      title: "Full-Stack Development",
       description:
-        "Chuyên nghiệp trong React, TypeScript, Tailwind CSS và các công nghệ web hiện đại nhất.",
+        "Thành thạo React, Node.js, Python,Java với khả năng xây dựng ứng dụng web hiện đại từ frontend đến backend.",
     },
     {
       icon: <Palette className="w-8 h-8 text-secondary-dark" />,
@@ -88,7 +88,7 @@ const Index = () => {
         <div
           className="absolute inset-0 parallax-bg opacity-900"
           style={{
-            backgroundImage: `url(${ninjaAIBanner})`,
+            backgroundImage: `url(https://res.cloudinary.com/dcoviwlpx/image/upload/v1755529390/pngtree-technology-futuristic-light-dot-hexagon-stereo-luxury-green-abstract-background-picture-image_1451871_kpm6hq.png)`,
           }}
         />
 
@@ -96,7 +96,7 @@ const Index = () => {
           <div className="text-center lg:text-left animate-fade-in-left">
             <h1 className="mb-6 leading-tight">
               <span className="block text-center text-xl md:text-4xl lg:text-5xl font-bold text-white -mt-2 lg:-mt-4">
-                Nguyễn Gia Đạt
+                Đàm Hữu Phú
               </span>
 
               <br></br>
@@ -108,7 +108,7 @@ const Index = () => {
                 “Tương lai của AI không phải là thay thế con người, mà là tăng
                 cường khả năng của con người.”
               </span>
-              <span className="block mt-8 text-sm md:text-base lg:text-lg font-medium text-gray-400">
+              <span className="block mt-8 text-sm md:text-base lg:text-lg font-medium text-gray-100">
                 Lập Trình Viên FrontEnd, BackEnd, Machine Learning và Ứng dụng
                 AI-First với các công nghệ sử dụng: HTML5, CSS3, TailwindCSS,
                 ReactJS, VueJS, NodeJS, ExpressJS, MongoDB, MySQL, Python.
@@ -178,8 +178,8 @@ const Index = () => {
             <div className="relative">
               <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-xl border-4 border-white/20">
                 <img
-                  src={heroPortrait}
-                  alt="Nguyễn Gia Đạt - Professional Portrait"
+                  src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1755523880/z6920425784374_e7b19a83e93b709eaff8b968e40fe219_rwq8lv.jpg"
+                  alt="Đàm Hữu Phú - Professional Portrait"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -228,10 +228,10 @@ const Index = () => {
       {/* Work Style & Contact Section */}
       <section ref={contactRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Phong cách làm việc & Liên hệ
+                Phong cách làm việc
               </h2>
 
               <div className="space-y-4 mb-8">
@@ -283,42 +283,18 @@ const Index = () => {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">
-                      nguyengiadat2k03@gmail.com
-                    </span>
+                    <span className="text-foreground">damphu207@gmail.com</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <MapPin className="w-5 h-5 text-primary" />
                     <span className="text-foreground">
-                      Hai Bà Trưng - Hà Nội
+                      Toà nhà BMC Số 5 Mạc Thị Bưởi, Vĩnh Tuy, Hai Bà Trưng, Hà Nội, Việt Nam
                     </span>
                   </div>
-                </div>
-
-                <div className="mt-8 p-4 bg-secondary/20 rounded-lg">
-                  <p className="text-muted-foreground mb-2">
-                    <strong className="text-foreground">Sở thích:</strong> Đá
-                    bóng, xem phim, đọc sách về công nghệ.
-                  </p>
-                  <p className="text-muted-foreground">
-                    <strong className="text-foreground">Mục tiêu:</strong> Trở
-                    thành một mentor giúp nhiều người trẻ phát triển sự nghiệp
-                    trong lĩnh vực công nghệ
-                  </p>
-                </div>
-
-                <div className="mt-6 text-center">
-                  <p className="text-lg font-medium text-gradient-primary italic">
-                    "Mỗi dòng code đều có thể thay đổi thế giới"
-                  </p>
-                </div>
-
-                <div className="mt-6 text-center">
-                  <Link to="/lien-he">
-                    <Button className="bg-gradient-primary text-white hover:bg-primary-dark btn-scale">
-                      Liên hệ ngay <Heart className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
+                  <div className="flex items-center gap-3">
+                    <PhoneCall className="w-5 h-5 text-primary" />
+                    <span className="text-foreground">0397706411</span>
+                  </div>
                 </div>
               </Card>
             </div>

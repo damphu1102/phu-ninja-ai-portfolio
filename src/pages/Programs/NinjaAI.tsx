@@ -209,7 +209,7 @@ const NinjaAI = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={ninjaAIBanner}
+            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1755529390/pngtree-technology-futuristic-light-dot-hexagon-stereo-luxury-green-abstract-background-picture-image_1451871_kpm6hq.png"
             alt="Ninja AI Program"
             className="w-full h-full object-cover"
           />

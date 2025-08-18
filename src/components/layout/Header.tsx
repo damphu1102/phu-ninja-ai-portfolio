@@ -32,11 +32,11 @@ const Header = () => {
   const navItems = [
     { label: "Trang chủ", href: "/" },
     {
-      label: "Giới thiệu về Đạt",
+      label: "Giới thiệu về Phú",
       isDropdown: true,
       items: [
         { label: "Kỹ Năng", href: "/gioi-thieu/ky-nang" },
-        { label: "Học Vấn", href: "/gioi-thieu/hoc-van" },
+        // { label: "Học Vấn", href: "/gioi-thieu/hoc-van" },
         { label: "Dự án tiêu biểu", href: "/gioi-thieu/du-an" },
       ],
     },
@@ -66,7 +66,6 @@ const Header = () => {
               alt="Logo"
               className="w-8 h-8 rounded-lg object-cover"
             />
-            <span className="hidden sm:block">Đạt</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -191,17 +190,6 @@ const Header = () => {
 
             {/* Notifications */}
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="hidden sm:flex relative"
-                >
-                  <Bell className="w-4 h-4" />
-                  {/* Chấm đỏ báo có thông báo mới */}
-                  <span className="absolute top-1 right-1 block w-2 h-2 bg-red-500 rounded-full"></span>
-                </Button>
-              </DropdownMenuTrigger>
 
               <DropdownMenuContent
                 align="end"
