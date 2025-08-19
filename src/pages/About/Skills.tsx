@@ -210,14 +210,25 @@ const Skills = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-green-200 py-20">
-      <div className="container bg-gradient-to-b mx-auto px-4">
+    <div
+      className="min-h-screen py-20 relative"
+      style={{
+        backgroundImage:
+          "url('https://res.cloudinary.com/dcoviwlpx/image/upload/v1755529390/pngtree-technology-futuristic-light-dot-hexagon-stereo-luxury-green-abstract-background-picture-image_1451871_kpm6hq.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 pointer-events-none z-0" />
+      <div className="container bg-gradient-to-b mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 animate-pulse">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-100 mb-6">
             Kỹ năng chuyên môn
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-gray-100 max-w-3xl mx-auto">
             Tổng hợp những kỹ năng và công nghệ tôi đã thành thạo qua quá trình
             học tập và làm việc.
           </p>

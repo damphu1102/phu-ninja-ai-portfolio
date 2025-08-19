@@ -100,7 +100,7 @@ const Index = () => {
               </span>
 
               <br></br>
-              <span className="block text-center text-base md:text-2xl lg:text-3xl font-semibold text-gradient-primary">
+              <span className="block text-center text-base md:text-2xl lg:text-3xl font-semibold text-gray-100">
                 From Ninja Ai
               </span>
               <br></br>

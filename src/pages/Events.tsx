@@ -14,7 +14,7 @@ const Events = () => {
       status: "upcoming",
       description:
         "Workshop thực hành xây dựng chatbot AI sử dụng OpenAI API và React. Thay thế cho lễ tân",
-      image: "https://yoxkoxpwgiwskdnjjhyd.supabase.co/storage/v1/object/sign/sukien/sukien3.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jYzBlZDFkZS00MzRjLTQ3NWMtOWQ1ZC02ZmYxNTY2ZDNiOTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzdWtpZW4vc3VraWVuMy5qcGciLCJpYXQiOjE3NTU1MDU2ODYsImV4cCI6MTc4NzA0MTY4Nn0.uNYJcgjAhmMvcwqMd2usxGbhr8HtGCj-s3vMdu2K52g",
+      image: "https://res.cloudinary.com/dcoviwlpx/image/upload/v1755578662/4_rrdbc4.jpg",
     },
     {
       title: "Tech Talk: Tương lai của Frontend Development",

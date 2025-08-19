@@ -6,11 +6,11 @@ import { ExternalLink, Github, Calendar, Users } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
-      title: "E-Commerce Platform",
+      title: "E-Commerce ",
       description:
         "Nền tảng thương mại điện tử hoàn chỉnh với tính năng thanh toán trực tuyến, quản lý sản phẩm và hệ thống đánh giá người dùng.",
       image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop",
+        "https://res.cloudinary.com/dcoviwlpx/image/upload/v1755577734/1_efdi6m.jpg",
       technologies: ["React", "Node.js", "MongoDB", "Stripe API", "JWT"],
       liveUrl: "#",
       githubUrl: "#",
@@ -24,11 +24,11 @@ const Projects = () => {
       ],
     },
     {
-      title: "AI Chatbot Healthcare",
+      title: "AI Chatbot",
       description:
         "Chatbot AI hỗ trợ tư vấn y tế cơ bản, tích hợp với hệ thống bệnh viện và có khả năng học hỏi từ dữ liệu bệnh nhân.",
       image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=500&h=300&fit=crop",
+        "https://res.cloudinary.com/dcoviwlpx/image/upload/v1755524544/AI_mzeqhh.jpg",
       technologies: [
         "Python",
         "TensorFlow",
@@ -48,11 +48,11 @@ const Projects = () => {
       ],
     },
     {
-      title: "Learning Management System",
+      title: "CRM System",
       description:
-        "Hệ thống quản lý học tập trực tuyến với tính năng video streaming, bài kiểm tra tự động và theo dõi tiến độ học tập.",
+        "Hệ thống giúp doanh nghiệp quản lý và phân tích tất cả các tương tác với khách hàng. Nó hoạt động như một trung tâm dữ liệu, lưu trữ thông tin về khách hàng, lịch sử giao dịch và mọi tương tác, từ đó giúp cải thiện mối quan hệ, tăng doanh số và tối ưu hóa quy trình làm việc.",
       image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=300&fit=crop",
+        "https://res.cloudinary.com/dcoviwlpx/image/upload/v1755577734/2_d2zsvq.jpg",
       technologies: ["Next.js", "Prisma", "MySQL", "AWS S3", "Socket.io"],
       liveUrl: "#",
       githubUrl: "#",
@@ -70,7 +70,7 @@ const Projects = () => {
       description:
         "Dashboard điều khiển và giám sát các thiết bị IoT trong nhà thông minh, với tính năng tự động hóa và báo cáo năng lượng.",
       image:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=500&h=300&fit=crop",
+        "https://res.cloudinary.com/dcoviwlpx/image/upload/v1755578112/3_aaskdc.png",
       technologies: ["Vue.js", "Express.js", "InfluxDB", "MQTT", "D3.js"],
       liveUrl: "#",
       githubUrl: "#",
@@ -86,14 +86,25 @@ const Projects = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-green-200 py-20">
-      <div className="container mx-auto px-4">
+    <div
+      className="min-h-screen py-20 relative"
+      style={{
+        backgroundImage:
+          "url('https://res.cloudinary.com/dcoviwlpx/image/upload/v1755529390/pngtree-technology-futuristic-light-dot-hexagon-stereo-luxury-green-abstract-background-picture-image_1451871_kpm6hq.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 pointer-events-none z-0" />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 animate-pulse">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-100 mb-6 ">
             Dự án tiêu biểu
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-gray-100 max-w-3xl mx-auto">
             Tổng hợp những dự án đặc sắc mà tôi đã tham gia phát triển, từ ứng
             dụng web đến các giải pháp AI và IoT. Mỗi dự án đều thể hiện sự sáng
             tạo và chuyên môn trong lĩnh vực công nghệ.
@@ -218,10 +229,10 @@ const Projects = () => {
         {/* Call to Action */}
         <div className="text-center mt-16">
           <Card className="p-8 bg-gradient-hero border-none">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
+            <h3 className="text-2xl font-bold text-gray-100 mb-4">
               Có ý tưởng dự án mới?
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-gray-100 mb-6 max-w-2xl mx-auto">
               Tôi luôn sẵn sàng thảo luận về những ý tưởng sáng tạo và cùng nhau
               biến chúng thành hiện thực. Hãy liên hệ để chúng ta có thể hợp
               tác!
