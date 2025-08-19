@@ -23,11 +23,19 @@ import ninjaAIBanner from "@/assets/ninja-ai-banner.jpg";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 
+interface ApplicationFormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  cvFile: File | null;
+  motivation: string;
+}
+
 const NinjaAI = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ApplicationFormData>({
     fullName: "",
     email: "",
     phone: "",
@@ -36,6 +44,7 @@ const NinjaAI = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fileError, setFileError] = useState<string>("");
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,6 +54,27 @@ const NinjaAI = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
+    
+    // Reset error
+    setFileError("");
+    
+    if (file) {
+      // Check file size (10MB = 10 * 1024 * 1024 bytes)
+      const maxSize = 10 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setFileError("File vượt quá 10MB");
+        // Clear the file input
+        if (e.target) {
+          e.target.value = "";
+        }
+        setFormData({
+          ...formData,
+          cvFile: null,
+        });
+        return;
+      }
+    }
+    
     setFormData({
       ...formData,
       cvFile: file,
@@ -66,7 +96,7 @@ const NinjaAI = () => {
           .substring(2)}.${fileExt}`;
 
         const { data: uploadData, error: uploadError } = await supabase.storage
-          .from("cv_uploads")
+          .from("ninja-ai-uploads")
           .upload(fileName, formData.cvFile);
 
         if (uploadError) {
@@ -82,7 +112,7 @@ const NinjaAI = () => {
         // Get public URL
         const {
           data: { publicUrl },
-        } = supabase.storage.from("cv_uploads").getPublicUrl(uploadData.path);
+        } = supabase.storage.from("ninja-ai-uploads").getPublicUrl(uploadData.path);
 
         cvUrl = publicUrl;
       }
@@ -123,6 +153,12 @@ const NinjaAI = () => {
         cvFile: null,
         motivation: "",
       });
+      setFileError("");
+      
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       console.error("Unexpected error:", error);
       toast({
@@ -511,14 +547,20 @@ const NinjaAI = () => {
                   </label>
                   <div className="relative">
                     <Input
+                      ref={fileInputRef}
                       type="file"
                       accept=".pdf,.doc,.docx"
                       onChange={handleFileChange}
-                      className="w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary-dark"
+                      className="w-full file:mr-1 file:py-0.5 file:px-1 file:rounded-sm file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary-dark file:cursor-pointer"
                     />
                     <div className="mt-1 text-xs text-muted-foreground">
                       Chấp nhận file PDF, DOC, DOCX (tối đa 10MB)
                     </div>
+                    {fileError && (
+                      <div className="mt-1 text-xs text-red-500 font-medium">
+                        {fileError}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -542,13 +584,18 @@ const NinjaAI = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !!fileError}
                   aria-busy={isSubmitting}
-                  className="bg-gradient-primary text-white hover:bg-primary-dark btn-scale btn-ripple shadow-green px-12 py-4 text-lg"
+                  className="bg-gradient-primary text-white hover:bg-primary-dark btn-scale btn-ripple shadow-green px-12 py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Đang gửi..." : "Gửi CV & Đơn ứng tuyển"}
                   <Send className="w-5 h-5 ml-2" />
                 </Button>
+                {fileError && (
+                  <div className="mt-2 text-sm text-red-500">
+                    Vui lòng chọn file có kích thước nhỏ hơn 10MB để tiếp tục
+                  </div>
+                )}
               </div>
             </form>
 

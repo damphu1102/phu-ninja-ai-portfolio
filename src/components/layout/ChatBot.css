@@ -6,3 +6,70 @@
 .animate-bounce-delay-2 {
   animation-delay: 0.2s;
 }
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* HTML formatting styles for chatbot responses */
+.prose p {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: inherit;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose ul {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding-left: 0;
+}
+
+.prose li {
+  margin-bottom: 0.25rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.prose li:before {
+  content: "•";
+  color: hsl(var(--primary));
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.prose ol {
+  list-style: decimal;
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.prose ol li {
+  padding-left: 0.25rem;
+}
+
+.prose ol li:before {
+  display: none;
+}
+
+.prose br {
+  line-height: 1.5;
+}

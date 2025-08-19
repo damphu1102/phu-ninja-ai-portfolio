@@ -4,12 +4,16 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import "./ChatBot.css";
 import {
-  MessageCircle,
+  Bot,
   Send,
   X,
   Image,
   MoreHorizontal,
   Sparkles,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface Message {
@@ -32,13 +36,24 @@ const ChatBot = () => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [showQuestions, setShowQuestions] = useState(true);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const questionsScrollRef = useRef<HTMLDivElement>(null);
 
   const quickQuestions = [
     "Đàm Hữu Phú là ai?",
-    "Chương trình Ninja AI là gì?",
-    "Làm thế nào để ứng tuyển?",
-    "Những kỹ năng cần thiết?",
+    "Chương trình thực tập Ninja AI là gì?",
+    "Làm thế nào để ứng tuyển thực tập?",
+    "Những kỹ năng cần thiết cho thực tập?",
+    "Thực tập có lương không?",
+    "Thời gian thực tập kéo dài bao lâu?",
+    "Có hỗ trợ tìm việc sau thực tập không?",
+    "Cần có kinh nghiệm trước khi thực tập không?",
+    "Thực tập online hay offline?",
+    "Có được làm dự án thực tế không?",
+    "Lộ trình thực tập như thế nào?",
+    "Có chứng chỉ sau khi hoàn thành thực tập không?"
   ];
 
   const scrollToBottom = () => {
@@ -67,7 +82,8 @@ const ChatBot = () => {
     setIsTyping(true);
 
     try {
-      const response = await fetch('https://yoxkoxpwgiwskdnjjhyd.supabase.co/functions/v1/chatbot-ai', {
+      console.log('Sending message to chatbot:', { content, sessionId, sessionKey });
+      const response = await fetch('https://tfwqbxfrjpxwhxorjxip.supabase.co/functions/v1/chatbot-ai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,6 +96,7 @@ const ChatBot = () => {
       });
 
       const data = await response.json();
+      console.log('Chatbot response:', response.status, data);
 
       if (response.ok) {
         const aiResponse: Message = {
@@ -95,16 +112,17 @@ const ChatBot = () => {
           setSessionId(data.sessionId);
         }
       } else {
+        console.error('Chatbot error response:', data);
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
-          content: "Xin lỗi, có lỗi xảy ra. Vui lòng thử lại sau.",
+          content: data.error || "Xin lỗi, có lỗi xảy ra. Vui lòng thử lại sau.",
           isUser: false,
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, errorMessage]);
       }
     } catch (error) {
-      console.error('Chat error:', error);
+      console.error('Chat network error:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: "Xin lỗi, có lỗi kết nối. Vui lòng thử lại sau.",
@@ -117,37 +135,24 @@ const ChatBot = () => {
     }
   };
 
-  const getAIResponse = (userMessage: string): string => {
-    const lowerMessage = userMessage.toLowerCase();
-
-    if (
-      lowerMessage.includes("phú") ||
-      lowerMessage.includes("đàm hữu phú")
-    ) {
-      return "Đàm Hữu Phú là một lập trình viên FrontEnd chuyên nghiệp với kinh nghiệm trong việc phát triển ứng dụng web hiện đại. Anh ấy có thế mạnh trong việc kết hợp nghệ thuật và công nghệ để tạo nên những sản phẩm web mang dấu ấn riêng.";
-    }
-
-    if (
-      lowerMessage.includes("ninja ai") ||
-      lowerMessage.includes("chương trình")
-    ) {
-      return "Chương trình Thực tập sinh Ninja AI là một chương trình đào tạo chuyên sâu về AI và phát triển web. Chương trình tập trung vào việc đào tạo những kỹ năng thực tế và cung cấp kinh nghiệm làm việc với các dự án thực tế.";
-    }
-
-    if (lowerMessage.includes("ứng tuyển") || lowerMessage.includes("apply")) {
-      return "Để ứng tuyển chương trình Ninja AI, bạn có thể điền form trên trang Ninja AI hoặc gửi CV và portfolio của bạn. Chúng tôi đang tìm kiếm những ứng viên có đam mê với công nghệ và mong muốn học hỏi.";
-    }
-
-    if (lowerMessage.includes("kỹ năng") || lowerMessage.includes("skill")) {
-      return "Các kỹ năng cần thiết bao gồm: HTML/CSS, JavaScript, React, cơ bản về AI/ML, và quan trọng nhất là tinh thần học hỏi. Chúng tôi sẽ đào tạo từ cơ bản đến nâng cao.";
-    }
-
-    // return "Cảm ơn bạn đã hỏi! Tôi có thể giúp bạn tìm hiểu về Đàm Hữu Phú, chương trình Ninja AI, quá trình ứng tuyển, và các kỹ năng cần thiết. Bạn có câu hỏi cụ thể nào khác không?";
-    return "Bạn có thể hỏi câu nào khôn hơn được không???";
-  };
 
   const handleQuickQuestion = (question: string) => {
     sendMessage(question);
+  };
+
+  const scrollQuestions = (direction: 'left' | 'right') => {
+    if (questionsScrollRef.current) {
+      const scrollAmount = 200;
+      const currentScroll = questionsScrollRef.current.scrollLeft;
+      const newScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount;
+      
+      questionsScrollRef.current.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -159,7 +164,7 @@ const ChatBot = () => {
             onClick={() => setIsOpen(true)}
             className="w-14 h-14 rounded-full bg-gradient-primary text-white shadow-green animate-pulse-glow btn-scale relative overflow-hidden chatbot-pulse"
           >
-            <MessageCircle className="w-6 h-6" />
+            <Bot className="w-6 h-6" />
           </Button>
         </div>
       )}
@@ -206,7 +211,14 @@ const ChatBot = () => {
                       : "bg-muted text-foreground rounded-bl-none"
                   }`}
                 >
-                  {message.content}
+                  {message.isUser ? (
+                    message.content
+                  ) : (
+                    <div 
+                      className="prose prose-sm max-w-none text-foreground"
+                      dangerouslySetInnerHTML={{ __html: message.content }}
+                    />
+                  )}
                 </div>
               </div>
             ))}
@@ -226,25 +238,50 @@ const ChatBot = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Questions */}
-          {messages.length === 1 && (
+          {/* Quick Questions - show initially and after each conversation */}
+          {(messages.length === 1 || (messages.length > 1 && messages[messages.length - 1].isUser === false)) && !isTyping && (
             <div className="px-4 py-2 border-t border-border bg-muted/30">
-              <div className="text-xs text-muted-foreground mb-2">
-                Câu hỏi gợi ý:
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-xs text-muted-foreground">
+                  Câu hỏi gợi ý:
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowQuestions(!showQuestions)}
+                  className="text-muted-foreground hover:text-primary p-1 h-auto"
+                >
+                  {showQuestions ? (
+                    <ChevronUp className="w-3 h-3" />
+                  ) : (
+                    <ChevronDown className="w-3 h-3" />
+                  )}
+                </Button>
               </div>
-              <div className="grid grid-cols-1 gap-1">
-                {quickQuestions.map((question, index) => (
-                  <Button
-                    key={index}
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => handleQuickQuestion(question)}
-                    className="text-xs h-auto p-2 justify-start text-left"
+              {showQuestions && (
+                <div className="relative">
+                  <div
+                    ref={questionsScrollRef}
+                    className="flex gap-2 overflow-x-auto flex-1 py-1"
+                    style={{
+                      scrollbarWidth: 'auto',
+                      msOverflowStyle: 'auto'
+                    }}
                   >
-                    {question}
-                  </Button>
-                ))}
-              </div>
+                    {quickQuestions.map((question, index) => (
+                      <Button
+                        key={index}
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => handleQuickQuestion(question)}
+                        className="text-xs h-auto p-2 text-center whitespace-nowrap flex-shrink-0 min-w-fit"
+                      >
+                        {question}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

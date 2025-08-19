@@ -43,30 +43,67 @@ serve(async (req) => {
 
     // If no sessionId provided, create a new session for anonymous user
     if (!currentSessionId && sessionKey) {
-      const { data: newSession, error: sessionError } = await supabase
+      // First try to find existing session with this key
+      const { data: existingSession } = await supabase
         .from('chatbot_sessions')
-        .insert([
-          {
-            session_key: sessionKey,
-            user_id: null,
-            status: 'active'
-          }
-        ])
-        .select()
+        .select('id')
+        .eq('session_key', sessionKey)
+        .eq('user_id', null)
         .single();
 
-      if (sessionError) {
-        console.error('Session creation error:', sessionError);
-        return new Response(
-          JSON.stringify({ error: 'Không thể tạo phiên trò chuyện' }),
-          {
-            status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
-      }
+      if (existingSession) {
+        currentSessionId = existingSession.id;
+      } else {
+        // Create new session with retry logic for unique constraint violations
+        let retryCount = 0;
+        const maxRetries = 3;
+        
+        while (retryCount < maxRetries) {
+          const uniqueSessionKey = `${sessionKey}_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+          
+          const { data: newSession, error: sessionError } = await supabase
+            .from('chatbot_sessions')
+            .insert([
+              {
+                session_key: uniqueSessionKey,
+                user_id: null,
+                status: 'active'
+              }
+            ])
+            .select()
+            .single();
 
-      currentSessionId = newSession.id;
+          if (!sessionError) {
+            currentSessionId = newSession.id;
+            break;
+          } else if (sessionError.code === '23505') {
+            // Duplicate key error, retry with new key
+            retryCount++;
+            continue;
+          } else {
+            // Other error, throw
+            console.error('Session creation error:', sessionError);
+            return new Response(
+              JSON.stringify({ error: 'Không thể tạo phiên trò chuyện' }),
+              {
+                status: 500,
+                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+              }
+            );
+          }
+        }
+
+        if (retryCount >= maxRetries) {
+          console.error('Failed to create session after retries');
+          return new Response(
+            JSON.stringify({ error: 'Không thể tạo phiên trò chuyện sau nhiều lần thử' }),
+            {
+              status: 500,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            }
+          );
+        }
+      }
     }
 
     // Save user message to database
@@ -117,28 +154,56 @@ serve(async (req) => {
             {
               text: `Bạn là PhúGPT, trợ lý AI của Đàm Hữu Phú và chương trình Thực tập sinh Ninja AI. Hãy trả lời bằng tiếng Việt một cách thân thiện và hữu ích.
 
+QUAN TRỌNG: Tất cả câu trả lời PHẢI được định dạng bằng HTML thuần túy. KHÔNG sử dụng Markdown. Sử dụng các thẻ HTML như <p>, <strong>, <em>, <ul>, <li>, <br> để định dạng nội dung.
+
 Thông tin về Đàm Hữu Phú:
-- Lập trình viên Frontend chuyên nghiệp
-- Có kinh nghiệm phát triển ứng dụng web hiện đại
-- Thế mạnh trong việc kết hợp nghệ thuật và công nghệ
-- Tạo nên những sản phẩm web mang dấu ấn riêng
+- Tên đầy đủ: Đàm Hữu Phú  
+- Nghề nghiệp: Lập trình viên Frontend chuyên nghiệp
+- Chuyên môn: Phát triển ứng dụng web hiện đại với ReactJS, NextJS, VueJS
+- Kinh nghiệm: Hơn 5 năm trong lĩnh vực Frontend Development
+- Thế mạnh: Kết hợp nghệ thuật và công nghệ để tạo ra những sản phẩm web độc đáo
+- Kỹ năng: HTML5, CSS3, JavaScript, TypeScript, React, Vue, Node.js, AI/ML Integration
+- Sở thích: Tìm hiểu công nghệ mới, ứng dụng AI vào phát triển web
+- Triết lý: "Tương lai của AI không phải là thay thế con người, mà là tăng cường khả năng của con người"
 
-Thông tin về chương trình Ninja AI:
-- Chương trình đào tạo thực tập sinh chuyên sâu về AI và phát triển web
-- Thời gian: 12 tuần 
-- Tập trung vào kỹ năng thực tế và dự án thực tế
-- Hỗ trợ mentor 1:1
-- Tỷ lệ có việc làm cao (95%)
-- Đào tạo từ cơ bản đến nâng cao về AI, Machine Learning, Deep Learning, NLP
+Thông tin về chương trình Thực tập sinh Ninja AI:
+- Chương trình đào tạo chuyên sâu về AI và phát triển web do Đàm Hữu Phú sáng lập
+- Thời gian: 12 tuần (3 tháng) với chương trình intensive
+- Mục tiêu: Đào tạo lập trình viên Frontend, Backend, Machine Learning và ứng dụng AI
+- Đặc điểm nổi bật:
+  + Tập trung vào kỹ năng thực tế và dự án thực tế
+  + Hỗ trợ mentor 1:1 từ các chuyên gia
+  + Tỷ lệ có việc làm cao (95% sau khi hoàn thành)
+  + Đào tạo từ cơ bản đến nâng cao về AI, Machine Learning, Deep Learning, NLP
+  + Kết hợp lý thuyết và thực hành trên dự án thực tế
+  + Cộng đồng học viên năng động và hỗ trợ lẫn nhau
 
-Kỹ năng cần thiết:
-- HTML/CSS, JavaScript, React
-- Cơ bản về AI/ML  
-- Tinh thần học hỏi
+Công nghệ được dạy trong chương trình thực tập:
+- Frontend: HTML5, CSS3, JavaScript, TypeScript, ReactJS, VueJS, TailwindCSS
+- Backend: NodeJS, ExpressJS, MongoDB, MySQL, Python
+- AI/ML: TensorFlow, PyTorch, OpenAI API, Computer Vision, NLP
+- Tools: Git, Docker, AWS, Vercel, Supabase
 
-Để ứng tuyển: Điền form trên trang web hoặc gửi CV và portfolio.
+Kỹ năng cần thiết để tham gia:
+- Cơ bản về HTML/CSS, JavaScript
+- Hiểu biết cơ bản về lập trình
+- Tinh thần học hỏi và không ngại thử thách
+- Đam mê với công nghệ và AI
 
-Hãy trả lời ngắn gọn, súc tích và hữu ích. Khi không biết thông tin cụ thể, hãy khuyến khích người dùng liên hệ trực tiếp.`
+Quy trình ứng tuyển:
+1. Điền form ứng tuyển trên trang web
+2. Nộp CV và portfolio (nếu có)
+3. Viết bài luận ngắn về động lực học AI
+4. Phỏng vấn online với mentor
+5. Nhận kết quả trong vòng 1 tuần
+
+Học phí và hỗ trợ:
+- Học phí ưu đãi cho sinh viên
+- Hỗ trợ trả góp
+- Cam kết hoàn tiền nếu không tìm được việc trong 6 tháng
+- Hỗ trợ tìm việc sau chương trình thực tập
+
+Hãy trả lời ngắn gọn, súc tích và hữu ích bằng HTML thuần túy. Khi không biết thông tin cụ thể, hãy khuyến khích người dùng liên hệ trực tiếp hoặc xem thêm thông tin trên website.`
             }
           ]
         },
@@ -157,7 +222,10 @@ Hãy trả lời ngắn gọn, súc tích và hữu ích. Khi không biết thô
     }
 
     const geminiData = await response.json();
-    const aiMessage = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 'Xin lỗi, tôi không thể trả lời câu hỏi này lúc này.';
+    let aiMessage = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 'Xin lỗi, tôi không thể trả lời câu hỏi này lúc này.';
+
+    // Remove HTML code block markers if present (both beginning and end)
+    aiMessage = aiMessage.replace(/^```html\s*\n?/i, '').replace(/\n?\s*```\s*$/i, '');
 
     console.log('Gemini response:', aiMessage);
 
