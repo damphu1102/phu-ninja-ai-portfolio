@@ -22,6 +22,7 @@ import { useToast } from "@/hooks/use-toast";
 import ninjaAIBanner from "@/assets/ninja-ai-banner.jpg";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 
 interface ApplicationFormData {
   fullName: string;
@@ -278,21 +279,18 @@ const NinjaAI = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <Button
-                  size="lg"
-                  className="relative bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white font-semibold hover:from-green-600 hover:to-green-700 shadow-lg shadow-green-300/50 hover:shadow-xl hover:shadow-green-400/60 transition-all duration-300 ease-in-out px-8 py-4 text-lg rounded-2xl overflow-hidden animate-breathe"
-                  onClick={() =>
-                    document
-                      .getElementById("application-form")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                >
-                  <span className="relative z-10 flex items-center">
-                    Ứng tuyển ngay
-                    <Zap className="w-5 h-5 ml-2 animate-pulse" />
-                  </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700 ease-in-out rounded-2xl" />
-                </Button>
+                <Link to="/lien-he#application-form">
+                  <Button
+                    size="lg"
+                    className="relative bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white font-semibold hover:from-green-600 hover:to-green-700 shadow-lg shadow-green-300/50 hover:shadow-xl hover:shadow-green-400/60 transition-all duration-300 ease-in-out px-8 py-4 text-lg rounded-2xl overflow-hidden animate-breathe"
+                  >
+                    <span className="relative z-10 flex items-center">
+                      Ứng tuyển ngay
+                      <Zap className="w-5 h-5 ml-2 animate-pulse" />
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700 ease-in-out rounded-2xl" />
+                  </Button>
+                </Link>
               </motion.div>
 
               <Button
@@ -479,136 +477,6 @@ const NinjaAI = () => {
               </Card>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Application Form */}
-      <section id="application-form" className="py-20 bg-background">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Đăng ký tham gia
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Điền thông tin để trở thành một thành viên của đại gia đình Ninja
-              AI
-            </p>
-          </div>
-
-          <Card className="p-8 bg-gray-100 border-none shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Họ và tên *
-                  </label>
-                  <Input
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    placeholder="Nguyễn Văn A"
-                    required
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Email *
-                  </label>
-                  <Input
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="your.email@example.com"
-                    required
-                    className="w-full"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Số điện thoại *
-                  </label>
-                  <Input
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="0123456789"
-                    required
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    CV / Portfolio
-                  </label>
-                  <div className="relative">
-                    <Input
-                      ref={fileInputRef}
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      onChange={handleFileChange}
-                      className="w-full file:mr-1 file:py-0.5 file:px-1 file:rounded-sm file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary-dark file:cursor-pointer"
-                    />
-                    <div className="mt-1 text-xs text-muted-foreground">
-                      Chấp nhận file PDF, DOC, DOCX (tối đa 10MB)
-                    </div>
-                    {fileError && (
-                      <div className="mt-1 text-xs text-red-500 font-medium">
-                        {fileError}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Cảm nhận về chương trình TTS Ninja AI *
-                </label>
-                <Textarea
-                  name="motivation"
-                  value={formData.motivation}
-                  onChange={handleInputChange}
-                  placeholder="Chia sẻ về mong muốn tham gia chương trình và mục tiêu nghề nghiệp của bạn..."
-                  rows={5}
-                  required
-                  className="w-full resize-none"
-                />
-              </div>
-
-              <div className="text-center">
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSubmitting || !!fileError}
-                  aria-busy={isSubmitting}
-                  className="bg-gradient-primary text-white hover:bg-primary-dark btn-scale btn-ripple shadow-green px-12 py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Đang gửi..." : "Gửi CV & Đơn ứng tuyển"}
-                  <Send className="w-5 h-5 ml-2" />
-                </Button>
-                {fileError && (
-                  <div className="mt-2 text-sm text-red-500">
-                    Vui lòng chọn file có kích thước nhỏ hơn 10MB để tiếp tục
-                  </div>
-                )}
-              </div>
-            </form>
-
-            <div className="mt-8 p-4 bg-secondary/10 rounded-lg">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle className="w-4 h-4 text-success" />
-                <span>
-                  Chúng tôi sẽ liên hệ với bạn trong vòng 48 giờ sau khi nhận
-                  được đơn ứng tuyển
-                </span>
-              </div>
-            </div>
-          </Card>
         </div>
       </section>
     </div>

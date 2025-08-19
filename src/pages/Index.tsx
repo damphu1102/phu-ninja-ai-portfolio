@@ -18,6 +18,9 @@ import {
   Heart,
   Phone,
   PhoneCall,
+  Target,
+  BookOpen,
+  CheckCircle,
 } from "lucide-react";
 
 const Index = () => {
@@ -201,7 +204,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {strengths.map((strength, index) => (
               <Card
                 key={index}
@@ -225,79 +228,396 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Work Style & Contact Section */}
-      <section ref={contactRef} className="py-20 bg-background">
+      {/* Trusted Partners Section */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Phong cách làm việc
+          <div className="text-center mb-12">
+            <div className="flex justify-center items-center mb-2">
+              <Heart className="w-8 h-8 text-yellow-500 mr-2" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Đối tác tin tưởng
               </h2>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-muted-foreground">
-                    <strong className="text-foreground">
-                      Tận tâm với từng dự án:
-                    </strong>{" "}
-                    Luôn đặt chất lượng và trải nghiệm người dùng lên hàng đầu
-                  </p>
+            </div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Những lãnh đạo công nghệ hàng đầu tin tưởng và đồng hành cùng tôi
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
+            {/* Card 1 */}
+            <Card className="p-6 flex flex-col gap-3 items-start card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    src="https://ftygorppzfiwxmoimzod.supabase.co/storage/v1/object/public/covers/cto-nguyen-huu-kien.png"
+                    alt="Nguyễn Hữu Kiên"
+                    className="w-20 h-20 rounded-full object-cover border-2"
+                  />
+                  <span className="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-white">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#22C55E" />
+                      <path
+                        d="M4 8.5L7 11.5L12 6.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-muted-foreground">
-                    <strong className="text-foreground">
-                      Học hỏi không ngừng:
-                    </strong>{" "}
-                    Luôn cập nhật các công nghệ và xu hướng mới nhất
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-muted-foreground">
-                    <strong className="text-foreground">
-                      Hợp tác hiệu quả:
-                    </strong>{" "}
-                    Giao tiếp rõ ràng và phản hồi nhanh chóng
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-muted-foreground">
-                    <strong className="text-foreground">
-                      Sáng tạo và đổi mới:
-                    </strong>{" "}
-                    Không ngừng tìm kiếm những giải pháp độc đáo
-                  </p>
+                <div>
+                  <div className="font-semibold text-lg text-foreground">
+                    Nguyễn Hữu Kiên
+                  </div>
+                  <div className="text-primary text-sm">CTO</div>
+                  <div className="text-muted-foreground text-xs">
+                    Rocket Global
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div>
-              <Card className="p-8 bg-gradient-card border-none shadow-lg">
-                <h3 className="text-2xl font-semibold text-foreground mb-6">
-                  Thông tin liên hệ
-                </h3>
-
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">damphu207@gmail.com</span>
+              <div className="flex items-center gap-1 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+                <span className="text-xs text-muted-foreground font-semibold">
+                  (5/5)
+                </span>
+              </div>
+              <div className="text-yellow-700 text-sm mt-2 font-medium">
+                "AI không chỉ là công nghệ, mà còn là động lực thúc đẩy sự sáng tạo và đổi mới không ngừng. 
+                Ứng dụng AI giúp doanh nghiệp tối ưu hóa quy trình, nâng cao hiệu quả và tạo ra giá trị vượt trội. 
+                Cùng AI, chúng ta mở ra những cơ hội mới, kiến tạo tương lai thông minh hơn cho cộng đồng."
+              </div>
+            </Card>
+            {/* Card 2 */}
+            <Card className="p-6 flex flex-col gap-3 items-start card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    src="https://ftygorppzfiwxmoimzod.supabase.co/storage/v1/object/public/covers/ha-tuan-anh-locaith.jpg"
+                    alt="Hà Tuấn Anh"
+                    className="w-20 h-20 rounded-full object-cover border-2"
+                  />
+                  <span className="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-white">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#22C55E" />
+                      <path
+                        d="M4 8.5L7 11.5L12 6.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div>
+                  <div className="font-semibold text-lg text-foreground">
+                    Hà Tuấn Anh
                   </div>
-                  <div className="flex items-center gap-3">
-                    <MapPin className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">
-                      Toà nhà BMC Số 5 Mạc Thị Bưởi, Vĩnh Tuy, Hai Bà Trưng, Hà Nội, Việt Nam
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <PhoneCall className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">0397706411</span>
+                  <div className="text-primary text-sm">CEO & Founder</div>
+                  <div className="text-muted-foreground text-xs">
+                    Locaith Solution Tech
                   </div>
                 </div>
-              </Card>
+              </div>
+              <div className="flex items-center gap-1 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+                <span className="text-xs text-muted-foreground font-semibold">
+                  (5/5)
+                </span>
+              </div>
+              <div className="text-yellow-700 text-sm mt-2 font-medium">
+                "Kết nối tri thức toàn cầu, lan tỏa giá trị AI đến từng doanh nghiệp Việt Nam. 
+                AI là cầu nối giữa con người và công nghệ, giúp mọi tổ chức phát triển bền vững và đột phá. 
+                Hãy để AI đồng hành cùng bạn trên hành trình chuyển đổi số và vươn tới thành công."
+              </div>
+            </Card>
+            {/* Card 3 */}
+            <Card className="p-6 flex flex-col gap-3 items-start card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    src="https://ftygorppzfiwxmoimzod.supabase.co/storage/v1/object/public/covers/le-thanh-chinh-leader.png"
+                    alt="Lê Thành Chỉnh"
+                    className="w-20 h-20 rounded-full object-cover border-2"
+                  />
+                  <span className="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-white">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#22C55E" />
+                      <path
+                        d="M4 8.5L7 11.5L12 6.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div>
+                  <div className="font-semibold text-lg text-foreground">
+                    Lê Thành Chỉnh
+                  </div>
+                  <div className="text-primary text-sm">Technical Leader</div>
+                  <div className="text-muted-foreground text-xs">Freelance</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+                <span className="text-xs text-muted-foreground font-semibold">
+                  (5/5)
+                </span>
+              </div>
+              <div className="text-yellow-700 text-sm mt-2 font-medium">
+                "AI là chìa khóa mở ra cánh cửa sáng tạo, giúp con người vượt qua mọi giới hạn truyền thống. 
+                Sự kết hợp giữa trí tuệ nhân tạo và tư duy con người tạo nên những giải pháp đột phá cho tương lai. 
+                Đầu tư vào AI là đầu tư cho sự phát triển lâu dài và bền vững."
+              </div>
+            </Card>
+            {/* Card 4 */}
+            <Card className="p-6 flex flex-col gap-3 items-start card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    src="https://ftygorppzfiwxmoimzod.supabase.co/storage/v1/object/public/covers/ly-hoang-hai-ceo-bmc.jpg"
+                    alt="Lý Hoàng Hải"
+                    className="w-20 h-20 rounded-full object-cover border-2"
+                  />
+                  <span className="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-white">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#22C55E" />
+                      <path
+                        d="M4 8.5L7 11.5L12 6.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div>
+                  <div className="font-semibold text-lg text-foreground">
+                    Lý Hoàng Hải
+                  </div>
+                  <div className="text-primary text-sm">CEO</div>
+                  <div className="text-muted-foreground text-xs">BMC</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+                <span className="text-xs text-muted-foreground font-semibold">
+                  (5/5)
+                </span>
+              </div>
+              <div className="text-yellow-700 text-sm mt-2 font-medium">
+                "Ứng dụng AI giúp doanh nghiệp nâng cao năng lực cạnh tranh, tối ưu hóa nguồn lực và tăng trưởng mạnh mẽ. 
+                AI mang lại sự chính xác, tốc độ và hiệu quả vượt trội trong mọi lĩnh vực hoạt động. 
+                Đón đầu xu hướng AI để dẫn dắt thị trường và tạo dấu ấn riêng cho doanh nghiệp."
+              </div>
+            </Card>
+            {/* Card 5 */}
+            <Card className="p-6 flex flex-col gap-3 items-start card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    src="https://ftygorppzfiwxmoimzod.supabase.co/storage/v1/object/public/covers/nguyen-hoang-kien-leader.png"
+                    alt="Nguyễn Hoàng Kiên"
+                    className="w-20 h-20 rounded-full object-cover border-2"
+                  />
+                  <span className="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-white">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#22C55E" />
+                      <path
+                        d="M4 8.5L7 11.5L12 6.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div>
+                  <div className="font-semibold text-lg text-foreground">
+                    Nguyễn Hoàng Kiên
+                  </div>
+                  <div className="text-primary text-sm">Leader & Mentor</div>
+                  <div className="text-muted-foreground text-xs">Freelance</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+                <span className="text-xs text-muted-foreground font-semibold">
+                  (5/5)
+                </span>
+              </div>
+              <div className="text-yellow-700 text-sm mt-2 font-medium">
+                "AI thúc đẩy tư duy đổi mới, mở rộng giới hạn công nghệ Việt Nam, tạo ra những giá trị khác biệt. 
+                Sự phát triển của AI là động lực cho các doanh nghiệp vươn lên mạnh mẽ trên thị trường quốc tế. 
+                Hãy cùng AI kiến tạo những giải pháp thông minh, nâng tầm vị thế Việt Nam."
+              </div>
+            </Card>
+            {/* Card 6 */}
+            <Card className="p-6 flex flex-col gap-3 items-start card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    src="	https://huans-ai-stage.vercel.app/avt.png"
+                    alt="Nguyễn Văn Huân"
+                    className="w-20 h-20 rounded-full object-cover border-2"
+                  />
+                  <span className="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-white">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#22C55E" />
+                      <path
+                        d="M4 8.5L7 11.5L12 6.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div>
+                  <div className="font-semibold text-lg text-foreground">
+                    Nguyễn Văn Huân
+                  </div>
+                  <div className="text-primary text-sm">HR</div>
+                  <div className="text-muted-foreground text-xs">
+                    Rocket Global
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                  />
+                ))}
+                <span className="text-xs text-muted-foreground font-semibold">
+                  (5/5)
+                </span>
+              </div>
+              <div className="text-yellow-700 text-sm mt-2 font-medium">
+                "AI là người bạn đồng hành tin cậy, hỗ trợ đắc lực cho sự phát triển của mỗi cá nhân và tổ chức. 
+                Sự kết hợp giữa AI và con người tạo nên môi trường làm việc hiệu quả, sáng tạo và đầy cảm hứng. 
+                Cùng AI, chúng ta xây dựng tương lai số hóa, nâng cao chất lượng cuộc sống và công việc."
+              </div>
+            </Card>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-8">
+            <div>
+              <div className="text-3xl font-bold text-primary">10+</div>
+              <div className="text-muted-foreground mt-2 text-sm">
+                Đối tác tin tưởng
+              </div>
             </div>
+            <div>
+              <div className="text-3xl font-bold text-primary">10+</div>
+              <div className="text-muted-foreground mt-2 text-sm">
+                Dự án thành công
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary">98%</div>
+              <div className="text-muted-foreground mt-2 text-sm">
+                Tỷ lệ hài lòng
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary">
+                5
+                <Star className="inline w-5 h-5 text-yellow-400 ml-1 fill-yellow-400" />
+              </div>
+              <div className="text-muted-foreground mt-2 text-sm">
+                Đánh giá trung bình
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Work Style Section */}
+      <section ref={contactRef} className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+              Phong cách <span className="text-primary">làm việc</span>
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Những nguyên tắc và giá trị mà tôi theo đuổi trong mỗi dự án và collaboration.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <Card className="flex items-center gap-4 p-6 card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300 rounded-xl">
+              <div className="flex items-center justify-center w-14 h-14 bg-green-50 rounded-xl">
+                {/* Icon: Target */}
+                <Target className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <div className="font-semibold text-lg text-foreground mb-1">Định hướng mục tiêu</div>
+                <div className="text-muted-foreground text-base">
+                  Luôn tập trung vào kết quả cuối cùng và giá trị mang lại cho người dùng.
+                </div>
+              </div>
+            </Card>
+            <Card className="flex items-center gap-4 p-6 card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300 rounded-xl">
+              <div className="flex items-center justify-center w-14 h-14 bg-green-50 rounded-xl">
+                {/* Icon: Users */}
+                <Users className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <div className="font-semibold text-lg text-foreground mb-1">Làm việc nhóm hiệu quả</div>
+                <div className="text-muted-foreground text-base">
+                  Tin tưởng vào sức mạnh của collaboration và knowledge sharing.
+                </div>
+              </div>
+            </Card>
+            <Card className="flex items-center gap-4 p-6 card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300 rounded-xl">
+              <div className="flex items-center justify-center w-14 h-14 bg-green-50 rounded-xl">
+                {/* Icon: BookOpen */}
+                <BookOpen className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <div className="font-semibold text-lg text-foreground mb-1">Đam mê học hỏi</div>
+                <div className="text-muted-foreground text-base">
+                  Không ngừng cập nhật công nghệ mới và chia sẻ kiến thức với cộng đồng.
+                </div>
+              </div>
+            </Card>
+            <Card className="flex items-center gap-4 p-6 card-hover-green bg-gradient-card shadow-md border hover:scale-105 transition-all duration-300 rounded-xl">
+              <div className="flex items-center justify-center w-14 h-14 bg-green-50 rounded-xl">
+                {/* Icon: Code */}
+                <Code className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <div className="font-semibold text-lg text-foreground mb-1">Chất lượng code cao</div>
+                <div className="text-muted-foreground text-base">
+                  Luôn tuân thủ các tiêu chuẩn và best practices trong lập trình.
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>

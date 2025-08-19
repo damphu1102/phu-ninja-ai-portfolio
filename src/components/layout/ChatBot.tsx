@@ -159,14 +159,31 @@ const ChatBot = () => {
     <>
       {/* Chat Widget Button */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50">
-          <Button
-            onClick={() => setIsOpen(true)}
-            className="w-14 h-14 rounded-full bg-gradient-primary text-white shadow-green animate-pulse-glow btn-scale relative overflow-hidden chatbot-pulse"
-          >
-            <Bot className="w-6 h-6" />
-          </Button>
-        </div>
+        <>
+          {/* Zalo floating button (links to provided Zalo) - moved to left */}
+          <div className="fixed bottom-6 left-6 z-50">
+            <a
+              href="https://zalo.me/0785708631"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on Zalo"
+              className="inline-block"
+            >
+              <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg btn-scale relative overflow-hidden">
+                <img src="https://huans-ai-stage.vercel.app/zalo.webp" alt="Zalo" className="w-8 h-8" />
+              </div>
+            </a>
+          </div>
+
+          <div className="fixed bottom-6 right-6 z-50">
+            <Button
+              onClick={() => setIsOpen(true)}
+              className="w-14 h-14 rounded-full bg-gradient-primary text-white shadow-green animate-pulse-glow btn-scale relative overflow-hidden chatbot-pulse"
+            >
+              <Bot className="w-6 h-6" />
+            </Button>
+          </div>
+        </>
       )}
 
       {/* Chat Window */}

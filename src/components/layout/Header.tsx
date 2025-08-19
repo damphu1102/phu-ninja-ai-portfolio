@@ -253,7 +253,7 @@ const Header = () => {
             </style>
 
             {/* Apply Now Button */}
-            <Link to="/chuong-trinh/ninja-ai" className="relative z-[9999]">
+            <Link to="/lien-he#application-form" className="relative z-[9999]">
               <Button
                 className="relative overflow-hidden bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 
                text-white font-semibold shadow-lg shadow-emerald-500/40 

@@ -41,14 +41,15 @@ const Events = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen py-20 relative bg-[url('https://res.cloudinary.com/dcoviwlpx/image/upload/v1755529390/pngtree-technology-futuristic-light-dot-hexagon-stereo-luxury-green-abstract-background-picture-image_1451871_kpm6hq.png')] bg-cover bg-center bg-no-repeat">
+      <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-100 mb-6">
             Sự kiện & Hoạt động
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-gray-100 max-w-3xl mx-auto">
             Tham gia các sự kiện công nghệ, workshop và meetup để cùng học hỏi,
             chia sẻ kinh nghiệm và kết nối với cộng đồng developer Việt Nam.
           </p>
@@ -125,7 +126,7 @@ const Events = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-16">
           <Card className="p-8 bg-gradient-hero border-none">
             <h3 className="text-2xl font-bold text-foreground mb-4">
               Muốn tổ chức sự kiện cùng tôi?
@@ -138,7 +139,7 @@ const Events = () => {
               Liên hệ hợp tác
             </Button>
           </Card>
-        </div>
+        </div> */}
       </div>
     </div>
   );

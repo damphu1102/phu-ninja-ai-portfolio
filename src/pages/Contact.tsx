@@ -1,54 +1,104 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageCircle, Calendar } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle, Calendar, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
+
+  // Application form state (moved from NinjaAI)
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
-    subject: "",
-    message: ""
+    phone: "",
+    cvFile: null as File | null,
+    motivation: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fileError, setFileError] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFileError("");
+    if (file) {
+      const maxSize = 10 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setFileError("File vượt quá 10MB");
+        if (e.target) e.target.value = "";
+        setFormData((prev) => ({ ...prev, cvFile: null }));
+        return;
+      }
+    }
+    setFormData((prev) => ({ ...prev, cvFile: file }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Tin nhắn đã được gửi!",
-      description: "Tôi sẽ phản hồi bạn trong thời gian sớm nhất.",
-    });
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    });
+    setIsSubmitting(true);
+    try {
+      let cvUrl = "";
+      if (formData.cvFile) {
+        const fileExt = formData.cvFile.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('ninja-ai-uploads')
+          .upload(fileName, formData.cvFile);
+        if (uploadError) {
+          throw uploadError;
+        }
+        const { data: { publicUrl } } = supabase.storage.from('ninja-ai-uploads').getPublicUrl(uploadData.path);
+        cvUrl = publicUrl;
+      }
+
+      await supabase.functions.invoke('submit-application', {
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phoneNumber: formData.phone,
+          cvUrl,
+          motivation: formData.motivation,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      toast({ title: 'Gửi thành công', description: 'Chúng tôi đã nhận được đơn ứng tuyển của bạn.' });
+      setFormData({ fullName: '', email: '', phone: '', cvFile: null, motivation: '' });
+      setFileError('');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    } catch (err: any) {
+      console.error('Submit error:', err);
+      toast({ title: 'Lỗi gửi', description: err.message || 'Có lỗi xảy ra khi gửi đơn.' , variant: 'destructive'});
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Liên hệ với tôi
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Tôi luôn sẵn sàng lắng nghe và trao đổi về các dự án, cơ hội hợp tác 
-            hoặc đơn giản là chia sẻ về công nghệ. Hãy liên hệ với tôi!
-          </p>
-        </div>
+    <div className="min-h-screen py-20 relative bg-[url('https://res.cloudinary.com/dcoviwlpx/image/upload/v1755529390/pngtree-technology-futuristic-light-dot-hexagon-stereo-luxury-green-abstract-background-picture-image_1451871_kpm6hq.png')] bg-cover bg-center bg-no-repeat">
+      <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header (shared NinjaAI background) */}
+        <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden mb-12">
+
+          <div className="relative z-10 text-center py-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Đăng ký & Liên hệ với tôi
+            </h1>
+            <p className="text-lg text-white/90 max-w-3xl mx-auto">
+              Tôi luôn sẵn sàng lắng nghe và trao đổi về các dự án, cơ hội hợp tác 
+              hoặc đơn giản là chia sẻ về công nghệ. Hãy liên hệ với tôi!
+            </p>
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Contact Info */}
@@ -89,7 +139,7 @@ const Contact = () => {
               </div>
             </Card>
 
-            <Card className="p-6 bg-gradient-hero border-none">
+            {/* <Card className="p-6 bg-gradient-hero border-none">
               <div className="text-center">
                 <Calendar className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold text-foreground mb-2">Đặt lịch hẹn</h3>
@@ -100,7 +150,7 @@ const Contact = () => {
                   Chọn thời gian phù hợp
                 </Button>
               </div>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Contact Form */}
@@ -108,78 +158,48 @@ const Contact = () => {
             <Card className="p-8 bg-gradient-card border-none shadow-lg">
               <div className="flex items-center gap-3 mb-6">
                 <MessageCircle className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold text-foreground">Yêu cầu cho tôi</h2>
+                <h2 className="text-2xl font-bold text-foreground">Đăng ký tham gia</h2>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form id="application-form" onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Họ và tên *
-                    </label>
-                    <Input
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="Nguyễn Văn A"
-                      required
-                      className="w-full"
-                    />
+                    <label className="block text-sm font-medium text-foreground mb-2">Họ và tên *</label>
+                    <Input name="fullName" value={(formData as any).fullName} onChange={handleInputChange} placeholder="Nguyễn Văn A" required className="w-full" />
                   </div>
-                  
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Email *
-                    </label>
-                    <Input
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="your.email@example.com"
-                      required
-                      className="w-full"
-                    />
+                    <label className="block text-sm font-medium text-foreground mb-2">Email *</label>
+                    <Input name="email" type="email" value={(formData as any).email} onChange={handleInputChange} placeholder="your.email@example.com" required className="w-full" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">Số điện thoại *</label>
+                    <Input name="phone" value={(formData as any).phone} onChange={handleInputChange} placeholder="0123456789" required className="w-full" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">CV / Portfolio</label>
+                    <div className="relative">
+                      <Input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="w-full file:mr-1 file:py-0.5 file:px-1 file:rounded-sm file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary-dark file:cursor-pointer" />
+                      <div className="mt-1 text-xs text-muted-foreground">Chấp nhận file PDF, DOC, DOCX (tối đa 10MB)</div>
+                      {fileError && <div className="mt-1 text-xs text-red-500 font-medium">{fileError}</div>}
+                    </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Tiêu đề *
-                  </label>
-                  <Input
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    placeholder="Chủ đề bạn muốn trao đổi"
-                    required
-                    className="w-full"
-                  />
+                  <label className="block text-sm font-medium text-foreground mb-2">Cảm nhận về chương trình TTS Ninja AI *</label>
+                  <Textarea name="motivation" value={(formData as any).motivation} onChange={handleInputChange} placeholder="Chia sẻ về mong muốn tham gia chương trình và mục tiêu nghề nghiệp của bạn..." rows={5} required className="w-full resize-none" />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Nội dung tin nhắn *
-                  </label>
-                  <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Chia sẻ chi tiết về những gì bạn muốn trao đổi..."
-                    rows={6}
-                    required
-                    className="w-full resize-none"
-                  />
+                <div className="text-center">
+                  <Button type="submit" size="lg" disabled={isSubmitting || !!fileError} aria-busy={isSubmitting} className="bg-gradient-primary text-white hover:bg-primary-dark btn-scale btn-ripple shadow-green px-12 py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    {isSubmitting ? 'Đang gửi...' : 'Gửi CV & Đơn ứng tuyển'}
+                    <Send className="w-5 h-5 ml-2" />
+                  </Button>
+                  {fileError && <div className="mt-2 text-sm text-red-500">Vui lòng chọn file có kích thước nhỏ hơn 10MB để tiếp tục</div>}
                 </div>
-
-                <Button 
-                  type="submit"
-                  size="lg"
-                  className="w-full md:w-auto bg-gradient-primary text-white hover:bg-primary-dark btn-scale btn-ripple shadow-green"
-                >
-                  Gửi
-                  <Send className="w-5 h-5 ml-2" />
-                </Button>
               </form>
 
               <div className="mt-8 p-4 bg-secondary/10 rounded-lg">
