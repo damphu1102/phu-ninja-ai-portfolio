@@ -1,73 +1,89 @@
-# Welcome to your Lovable project
+# Phu Ninja AI Portfolio
 
-## Project info
+Dự án Portfolio cá nhân chuyên nghiệp được xây dựng với các công nghệ web hiện đại nhất, tích hợp AI và các tính năng tương tác cao. Website giới thiệu về hành trình, kỹ năng, dự án và chương trình "Ninja AI" độc đáo.
 
-**URL**: https://lovable.dev/projects/fe0dfe9e-11c0-4b17-a82f-eaec9b13ee09
+![Project Preview](https://placehold.co/1200x600/png?text=Project+Preview)
 
-## How can I edit this code?
+## 🚀 Tính năng nổi bật
 
-There are several ways of editing your application.
+- **Giao diện hiện đại**: Thiết kế Responsive, Dark mode, hiệu ứng mượt mà với Framer Motion.
+- **Hệ thống nội dung**:
+  - **Giới thiệu**: Hồ sơ năng lực chi tiết (Kỹ năng, Học vấn, Dự án cá nhân).
+  - **Chương trình Ninja AI**: Thông tin chi tiết về chương trình đào tạo/sản phẩm AI.
+  - **Tin tức & Sự kiện**: Cập nhật thông tin mới nhất.
+- **Tương tác**: Form liên hệ tích hợp, tối ưu trải nghiệm người dùng.
+- **Hiệu năng cao**: Tối ưu hóa SEO và tốc độ tải trang nhờ Vite và React.
 
-**Use Lovable**
+## 🛠 Công nghệ sử dụng
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fe0dfe9e-11c0-4b17-a82f-eaec9b13ee09) and start prompting.
+Dự án được xây dựng dựa trên nền tảng vững chắc của các công nghệ hàng đầu:
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Core**: [React](https://react.dev/) (v18), [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **UI Framework & Styling**:
+  - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework.
+  - [Shadcn UI](https://ui.shadcn.com/) - Bộ component UI chất lượng cao.
+  - [Radix UI](https://www.radix-ui.com/) - Headless UI primitives.
+- **State Management & Data Fetching**: [TanStack Query](https://tanstack.com/query/latest) (React Query).
+- **Backend / Database**: [Supabase](https://supabase.com/).
+- **Animation**: [Framer Motion](https://www.framer.com/motion/), [Lottie React](https://lottiefiles.com/).
+- **Forms**: [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/) (Validation).
+- **Icons**: [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/).
 
-**Use your preferred IDE**
+## 📦 Hướng dẫn cài đặt
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Để chạy dự án ở môi trường local, bạn cần cài đặt [Node.js](https://nodejs.org/) (khuyên dùng phiên bản LTS).
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Clone repository**:
 
-Follow these steps:
+   ```bash
+   git clone <YOUR_GIT_URL>
+   cd phu-ninja-ai-portfolio
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Cài đặt dependencies**:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+   ```bash
+   npm install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. **Cấu hình biến môi trường**:
+   Tạo file `.env` ở thư mục gốc (nếu cần) và cấu hình các key kết nối Supabase hoặc API khác.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+4. **Khởi chạy ứng dụng**:
+   ```bash
+   npm run dev
+   ```
+   Truy cập `http://localhost:8080` để xem kết quả.
+
+## 📂 Cấu trúc dự án
+
+```
+src/
+├── components/     # Các component tái sử dụng (UI, Layout, v.v.)
+│   ├── ui/         # Shadcn UI components
+│   └── layout/     # Layout chính của trang
+├── pages/          # Các trang chính (Index, About, Contact, v.v.)
+├── hooks/          # Custom Hooks
+├── lib/            # Tiện ích bổ trợ (Utils)
+├── integrations/   # Tích hợp dịch vụ bên thứ 3 (Supabase)
+└── App.tsx         # Routing và cấu hình chính
 ```
 
-**Edit a file directly in GitHub**
+## 🤝 Đóng góp
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Mọi sự đóng góp đều được hoan nghênh! Nếu bạn muốn cải thiện dự án:
 
-**Use GitHub Codespaces**
+1. Fork dự án.
+2. Tạo nhánh tính năng mới (`git checkout -b feature/AmazingFeature`).
+3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`).
+4. Push lên nhánh (`git push origin feature/AmazingFeature`).
+5. Tạo Pull Request.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📝 License
 
-## What technologies are used for this project?
+Dự án này được phát hành dưới giấy phép MIT. Xem file `LICENSE` để biết thêm chi tiết.
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/fe0dfe9e-11c0-4b17-a82f-eaec9b13ee09) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Được phát triển với ❤️ tại Việt Nam.
