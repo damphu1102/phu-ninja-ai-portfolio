@@ -113,7 +113,7 @@ const Index = () => {
                          </div>
                          <div className="flex flex-col sm:flex-row sm:items-center border-b border-white/5 pb-2 hover:pl-2 transition-all duration-300">
                              <span className="w-40 text-[#00ff84] font-semibold text-lg">Date of birth:</span>
-                             <span className="text-white text-lg font-light">Feb 02, 2003</span>
+                             <span className="text-white text-lg font-light">Feb 11, 2003</span>
                          </div>
                          <div className="flex flex-col sm:flex-row sm:items-center border-b border-white/5 pb-2 hover:pl-2 transition-all duration-300">
                              <span className="w-40 text-[#00ff84] font-semibold text-lg">Address:</span>
