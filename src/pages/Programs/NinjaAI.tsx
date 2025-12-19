@@ -19,7 +19,7 @@ import {
   Upload,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import ninjaAIBanner from "@/assets/ninja-ai-banner.jpg";
+
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
