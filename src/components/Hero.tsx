@@ -2,13 +2,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
-import LottieAnimation from "./LottieAnimation";
+
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
-  const [lottieData, setLottieData] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -23,12 +22,7 @@ const Hero = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    fetch('/loop-header.lottie')
-      .then(response => response.json())
-      .then(data => setLottieData(data))
-      .catch(error => console.error("Error loading Lottie animation:", error));
-  }, []);
+
 
   useEffect(() => {
     // Skip effect on mobile
@@ -171,40 +165,29 @@ const Hero = () => {
           </div>
           
           <div className="w-full lg:w-1/2 relative mt-6 lg:mt-0">
-            {lottieData ? (
-              <div className="relative z-10 animate-fade-in" style={{ animationDelay: "0.9s" }}>
-                <LottieAnimation 
-                  animationPath={lottieData} 
-                  className="w-full h-auto max-w-lg mx-auto"
-                  loop={true}
-                  autoplay={true}
-                />
-              </div>
-            ) : (
-              <div className="relative animate-fade-in" style={{ animationDelay: "0.5s" }}>
-                {/* SVG Filter to render black pixels transparent (Green Screen effect for Black) */}
-                <svg width="0" height="0" className="absolute">
-                  <filter id="remove-black" colorInterpolationFilters="sRGB">
-                    <feColorMatrix
-                      type="matrix"
-                      values="1 0 0 0 0
-                              0 1 0 0 0
-                              0 0 1 0 0
-                              3 3 3 0 -1.5" 
-                    />
-                  </filter>
-                </svg>
+            <div className="relative animate-fade-in" style={{ animationDelay: "0.5s" }}>
+              {/* SVG Filter to render black pixels transparent (Green Screen effect for Black) */}
+              <svg width="0" height="0" className="absolute">
+                <filter id="remove-black" colorInterpolationFilters="sRGB">
+                  <feColorMatrix
+                    type="matrix"
+                    values="1 0 0 0 0
+                            0 1 0 0 0
+                            0 0 1 0 0
+                            3 3 3 0 -1.5" 
+                  />
+                </filter>
+              </svg>
 
-                {/* Apply the filter to the image */}
-                <img 
-                  ref={imageRef} 
-                  src="/hero_portrait.png" 
-                  alt="DH.PHU Portfolio Portrait" 
-                  className="relative z-10 w-full h-auto max-w-2xl lg:max-w-4xl mx-auto object-cover hover:scale-[1.05] transition-transform duration-500 ease-out translate-y-16 scale-125 lg:scale-135" 
-                  style={{ filter: 'url(#remove-black)', willChange: 'transform' }}
-                />
-              </div>
-            )}
+              {/* Apply the filter to the image */}
+              <img 
+                ref={imageRef} 
+                src="/hero_portrait.png" 
+                alt="DH.PHU Portfolio Portrait" 
+                className="relative z-10 w-full h-auto max-w-2xl lg:max-w-4xl mx-auto object-cover hover:scale-[1.05] transition-transform duration-500 ease-out translate-y-16 scale-125 lg:scale-135" 
+                style={{ filter: 'url(#remove-black)', willChange: 'transform' }}
+              />
+            </div>
           </div>
         </div>
       </div>
