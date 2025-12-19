@@ -21,7 +21,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 import { motion } from "framer-motion";
-import { supabase } from "@/integrations/supabase/client";
+
 import { Link } from "react-router-dom";
 
 interface ApplicationFormData {
@@ -87,59 +87,8 @@ const NinjaAI = () => {
     setIsSubmitting(true);
 
     try {
-      let cvUrl = "";
-
-      // Upload CV file if selected
-      if (formData.cvFile) {
-        const fileExt = formData.cvFile.name.split(".").pop();
-        const fileName = `${Date.now()}-${Math.random()
-          .toString(36)
-          .substring(2)}.${fileExt}`;
-
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from("ninja-ai-uploads")
-          .upload(fileName, formData.cvFile);
-
-        if (uploadError) {
-          console.error("Upload error:", uploadError);
-          toast({
-            title: "Lỗi tải file",
-            description: "Không thể tải lên file CV. Vui lòng thử lại.",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        // Get public URL
-        const {
-          data: { publicUrl },
-        } = supabase.storage.from("ninja-ai-uploads").getPublicUrl(uploadData.path);
-
-        cvUrl = publicUrl;
-      }
-
-      // Submit application
-      const { data, error } = await supabase.functions.invoke(
-        "submit-application",
-        {
-          body: {
-            fullName: formData.fullName,
-            email: formData.email,
-            phoneNumber: formData.phone,
-            cvUrl: cvUrl,
-          },
-        }
-      );
-
-      if (error) {
-        console.error("Submit error:", error);
-        toast({
-          title: "Lỗi gửi đơn",
-          description: error.message || "Có lỗi xảy ra khi gửi đơn ứng tuyển",
-          variant: "destructive",
-        });
-        return;
-      }
+      // Mock submission delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
       toast({
         title: "Đơn ứng tuyển đã được gửi!",

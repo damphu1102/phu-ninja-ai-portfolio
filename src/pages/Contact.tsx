@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, MessageCircle, Calendar, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+
 
 const Contact = () => {
   const { toast } = useToast();
@@ -45,30 +45,8 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      let cvUrl = "";
-      if (formData.cvFile) {
-        const fileExt = formData.cvFile.name.split('.').pop();
-        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('ninja-ai-uploads')
-          .upload(fileName, formData.cvFile);
-        if (uploadError) {
-          throw uploadError;
-        }
-        const { data: { publicUrl } } = supabase.storage.from('ninja-ai-uploads').getPublicUrl(uploadData.path);
-        cvUrl = publicUrl;
-      }
-
-      await supabase.functions.invoke('submit-application', {
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phoneNumber: formData.phone,
-          cvUrl,
-          motivation: formData.motivation,
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+      // Simulation of submission
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
       toast({ title: 'Gửi thành công', description: 'Chúng tôi đã nhận được đơn ứng tuyển của bạn.' });
       setFormData({ fullName: '', email: '', phone: '', cvFile: null, motivation: '' });
