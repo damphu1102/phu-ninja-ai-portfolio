@@ -7,6 +7,7 @@ import LottieAnimation from "./LottieAnimation";
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const parallaxRef = useRef<HTMLDivElement>(null);
   const [lottieData, setLottieData] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,19 +34,29 @@ const Hero = () => {
     // Skip effect on mobile
     if (isMobile) return;
     
+    let rafId: number;
+    
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current || !imageRef.current) return;
-      
-      const {
-        left,
-        top,
-        width,
-        height
-      } = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - left) / width - 0.5;
-      const y = (e.clientY - top) / height - 0.5;
+        if (rafId) return;
+        
+        rafId = requestAnimationFrame(() => {
+            if (!containerRef.current || !imageRef.current) {
+                rafId = 0;
+                return;
+            }
+            
+            const {
+                left,
+                top,
+                width,
+                height
+            } = containerRef.current.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
 
-      imageRef.current.style.transform = `perspective(1000px) rotateY(${x * 2.5}deg) rotateX(${-y * 2.5}deg) scale3d(1.02, 1.02, 1.02)`;
+            imageRef.current.style.transform = `perspective(1000px) rotateY(${x * 2.5}deg) rotateX(${-y * 2.5}deg) scale3d(1.02, 1.02, 1.02)`;
+            rafId = 0;
+        });
     };
     
     const handleMouseLeave = () => {
@@ -64,6 +75,7 @@ const Hero = () => {
         container.removeEventListener("mousemove", handleMouseMove);
         container.removeEventListener("mouseleave", handleMouseLeave);
       }
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
   
@@ -72,14 +84,11 @@ const Hero = () => {
     if (isMobile) return;
     
     const handleScroll = () => {
+      if (!parallaxRef.current) return;
       const scrollY = window.scrollY;
-      const elements = document.querySelectorAll('.parallax');
-      elements.forEach(el => {
-        const element = el as HTMLElement;
-        const speed = parseFloat(element.dataset.speed || '0.1');
-        const yPos = -scrollY * speed;
-        element.style.setProperty('--parallax-y', `${yPos}px`);
-      });
+      const speed = 0.05; // Hardcoded since we use ref
+      const yPos = -scrollY * speed;
+      parallaxRef.current.style.transform = `translateY(${yPos}px)`;
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -88,62 +97,75 @@ const Hero = () => {
   
   return (
     <section 
-      className="overflow-hidden relative bg-cover" 
+      className="relative bg-transparent" 
       id="hero" 
       style={{
-        backgroundImage: 'url("/Header-background.webp")',
-        backgroundPosition: 'center 30%', 
         padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
-      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-pulse-gradient opacity-20 blur-3xl rounded-full"></div>
+      {/* Container for background effects to prevent overflow */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-[#00ff84] opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
+          <div 
+            ref={parallaxRef}
+            className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-pulse-100/30 rounded-full blur-3xl -z-10 parallax" 
+            style={{ willChange: 'transform' }}
+          ></div>
+      </div>
       
-      <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
+      <div className="container px-4 sm:px-6 lg:px-8 relative z-10" ref={containerRef}>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
           <div className="w-full lg:w-1/2">
+            {/* Green Status Dot */}
             <div 
-              className="pulse-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
+              className="w-6 h-6 rounded-full bg-[#00ff84] mb-6 animate-fade-in shadow-[0_0_15px_rgba(0,255,132,0.5)]"
+              style={{ animationDelay: "0.05s" }}
+            />
+
+            <p 
+              className="text-xl sm:text-2xl mb-4 font-medium text-white animate-fade-in flex items-center gap-2"
               style={{ animationDelay: "0.1s" }}
             >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">01</span>
-              <span>Purpose</span>
-            </div>
+              Hello, I'm Dam Huu Phu <span className="animate-wave">👋</span>
+            </p>
             
             <h1 
-              className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
+              className="font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight animate-fade-in mb-6 tracking-tight" 
               style={{ animationDelay: "0.3s" }}
             >
-              Atlas: Where Code<br className="hidden sm:inline" />Meets Motion
+              <span className="text-white block">FRONTEND</span>
+              <span className="text-[#00ff84] block">DEVELOPER</span>
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
-              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-950 font-normal text-base sm:text-lg text-left"
+              className="mt-6 mb-8 leading-relaxed animate-fade-in text-gray-400 font-normal text-base sm:text-lg text-left max-w-lg"
             >
-              The humanoid companion that learns and adapts alongside you.
+              Building beautiful, responsive, and user-friendly web interfaces with modern technologies.
             </p>
             
             <div 
-              className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in" 
+              className="flex flex-col sm:flex-row gap-4 animate-fade-in" 
               style={{ animationDelay: "0.7s" }}
             >
               <a 
-                href="#get-access" 
-                className="flex items-center justify-center group w-full sm:w-auto text-center" 
+                href="#contact" 
+                className="flex items-center justify-center group w-full sm:w-auto text-center transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,132,0.4)] hover:-translate-y-1" 
                 style={{
-                  backgroundColor: '#FE5C02',
+                  backgroundColor: '#00ff84',
                   borderRadius: '1440px',
                   boxSizing: 'border-box',
-                  color: '#FFFFFF',
+                  color: '#000000',
+                  fontWeight: '700',
                   cursor: 'pointer',
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                  padding: '16px 24px', // Slightly reduced padding for mobile
-                  border: '1px solid white',
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  padding: '16px 32px',
+                  border: 'none',
                 }}
               >
-                Request Access
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                Contact Me
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
@@ -159,25 +181,33 @@ const Hero = () => {
                 />
               </div>
             ) : (
-              <>
-              <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
-              <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+              <div className="relative animate-fade-in" style={{ animationDelay: "0.5s" }}>
+                {/* SVG Filter to render black pixels transparent (Green Screen effect for Black) */}
+                <svg width="0" height="0" className="absolute">
+                  <filter id="remove-black" colorInterpolationFilters="sRGB">
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0
+                              0 1 0 0 0
+                              0 0 1 0 0
+                              3 3 3 0 -1.5" 
+                    />
+                  </filter>
+                </svg>
+
+                {/* Apply the filter to the image */}
                 <img 
                   ref={imageRef} 
-                  src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                  alt="Atlas Robot" 
-                  className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
-                  style={{ transformStyle: 'preserve-3d' }} 
+                  src="/hero_portrait.png" 
+                  alt="DH.PHU Portfolio Portrait" 
+                  className="relative z-10 w-full h-auto max-w-2xl lg:max-w-4xl mx-auto object-cover hover:scale-[1.05] transition-transform duration-500 ease-out translate-y-16 scale-125 lg:scale-135" 
+                  style={{ filter: 'url(#remove-black)', willChange: 'transform' }}
                 />
-                <div className="absolute inset-0" style={{ backgroundImage: 'url("/hero-image.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', mixBlendMode: 'overlay', opacity: 0.5 }}></div>
               </div>
-              </>
             )}
           </div>
         </div>
       </div>
-      
-      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-pulse-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
     </section>
   );
 };

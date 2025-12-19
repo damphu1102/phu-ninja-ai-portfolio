@@ -14,6 +14,7 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  ChevronsUp,
 } from "lucide-react";
 
 interface Message {
@@ -29,7 +30,7 @@ const ChatBot = () => {
     {
       id: "1",
       content:
-        "Xin chào! Tôi là PhúGPT 🤖 Tôi có thể giúp bạn tìm hiểu về Đàm Hữu Phú và Chương trình TTS Ninja AI. Bạn muốn biết điều gì?",
+        "Hello! I am PhuGPT 🤖 I can help you learn about Dam Huu Phu and the Ninja AI Internship Program. What would you like to know?",
       isUser: false,
       timestamp: new Date(),
     },
@@ -42,18 +43,18 @@ const ChatBot = () => {
   const questionsScrollRef = useRef<HTMLDivElement>(null);
 
   const quickQuestions = [
-    "Đàm Hữu Phú là ai?",
-    "Chương trình thực tập Ninja AI là gì?",
-    "Làm thế nào để ứng tuyển thực tập?",
-    "Những kỹ năng cần thiết cho thực tập?",
-    "Thực tập có lương không?",
-    "Thời gian thực tập kéo dài bao lâu?",
-    "Có hỗ trợ tìm việc sau thực tập không?",
-    "Cần có kinh nghiệm trước khi thực tập không?",
-    "Thực tập online hay offline?",
-    "Có được làm dự án thực tế không?",
-    "Lộ trình thực tập như thế nào?",
-    "Có chứng chỉ sau khi hoàn thành thực tập không?"
+    "Who is Dam Huu Phu?",
+    "What is the Ninja AI Internship?",
+    "How to apply for internship?",
+    "What skills are needed?",
+    "Is the internship paid?",
+    "How long is the internship?",
+    "Job placement support?",
+    "Is experience required?",
+    "Is it online or offline?",
+    "Real project experience?",
+    "What is the internship roadmap?",
+    "Certificate upon completion?"
   ];
 
   const scrollToBottom = () => {
@@ -64,8 +65,47 @@ const ChatBot = () => {
     scrollToBottom();
   }, [messages]);
 
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Toggle visibility - Show earlier to visualize progress
+      if (window.scrollY > 50) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+
+      // Calculate progress
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = (window.scrollY / totalHeight) * 100;
+        setScrollProgress(Math.min(100, Math.max(0, progress)));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [sessionKey] = useState(() => 'session_' + Math.random().toString(36).substr(2, 9));
+
+  // ... (sendMessage function remains same) ...
+  // Need to include sendMessage and other functions if I replace the whole block or be careful.
+  // I will just use ReplaceFileContent for the JSX part and imports if possible.
+  // But I need to add state.
+  // I will add imports and state at top, then layout at bottom.
+  // This tool call is for Imports and Hooks.
+
 
   const sendMessage = async (content: string) => {
     if (!content.trim()) return;
@@ -115,7 +155,7 @@ const ChatBot = () => {
         console.error('Chatbot error response:', data);
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
-          content: data.error || "Xin lỗi, có lỗi xảy ra. Vui lòng thử lại sau.",
+          content: data.error || "Sorry, an error occurred. Please try again later.",
           isUser: false,
           timestamp: new Date(),
         };
@@ -125,7 +165,7 @@ const ChatBot = () => {
       console.error('Chat network error:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "Xin lỗi, có lỗi kết nối. Vui lòng thử lại sau.",
+        content: "Sorry, connection error. Please try again later.",
         isUser: false,
         timestamp: new Date(),
       };
@@ -160,22 +200,8 @@ const ChatBot = () => {
       {/* Chat Widget Button */}
       {!isOpen && (
         <>
-          {/* Zalo floating button (links to provided Zalo) - moved to left */}
+          {/* AI Chatbot Button - moved to left as requested */}
           <div className="fixed bottom-6 left-6 z-50">
-            <a
-              href="https://zalo.me/0785708631"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat on Zalo"
-              className="inline-block"
-            >
-              <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg btn-scale relative overflow-hidden">
-                <img src="https://huans-ai-stage.vercel.app/zalo.webp" alt="Zalo" className="w-8 h-8" />
-              </div>
-            </a>
-          </div>
-
-          <div className="fixed bottom-6 right-6 z-50">
             <Button
               onClick={() => setIsOpen(true)}
               className="w-14 h-14 rounded-full bg-gradient-primary text-white shadow-green animate-pulse-glow btn-scale relative overflow-hidden chatbot-pulse"
@@ -183,12 +209,55 @@ const ChatBot = () => {
               <Bot className="w-6 h-6" />
             </Button>
           </div>
+
+          {/* Scroll To Top Button - Right Side */}
+          {showScrollTop && (
+            <div className="fixed bottom-6 right-6 z-50">
+              <div 
+                className="relative w-14 h-14 flex items-center justify-center cursor-pointer btn-scale" 
+                onClick={scrollToTop}
+              >
+                {/* Progress Ring SVG */}
+                <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
+                  {/* Track */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="46"
+                    fill="none"
+                    stroke="#00ff84"
+                    strokeWidth="2"
+                    strokeOpacity="0.2"
+                  />
+                  {/* Progress Indicator */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="46"
+                    fill="none"
+                    stroke="#00ff84"
+                    strokeWidth="3"
+                    strokeDasharray="289.03" // 2 * pi * 46
+                    strokeDashoffset={289.03 - (scrollProgress / 100) * 289.03}
+                    strokeLinecap="round"
+                    className="transition-all duration-100 ease-out"
+                  />
+                </svg>
+
+                <Button
+                  className="w-10 h-10 rounded-full bg-black/80 text-[#00ff84] p-0 shadow-none hover:bg-black group border-none z-10"
+                >
+                  <ChevronsUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
+                </Button>
+              </div>
+            </div>
+          )}
         </>
       )}
 
-      {/* Chat Window */}
+      {/* Chat Window - moved to left to align with buttons */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-[400px] h-[500px] z-50 flex flex-col bg-card/95 backdrop-blur-md border shadow-xl animate-scale-in">
+        <Card className="fixed bottom-24 left-6 w-[350px] md:w-[400px] h-[500px] z-50 flex flex-col bg-card/95 backdrop-blur-md border shadow-xl animate-scale-in">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-primary text-white rounded-t-lg">
             <div className="flex items-center space-x-2">
@@ -260,7 +329,7 @@ const ChatBot = () => {
             <div className="px-4 py-2 border-t border-border bg-muted/30">
               <div className="flex items-center justify-between mb-2">
                 <div className="text-xs text-muted-foreground">
-                  Câu hỏi gợi ý:
+                  Suggested questions:
                 </div>
                 <Button
                   variant="ghost"
@@ -313,7 +382,7 @@ const ChatBot = () => {
                 <Image className="w-4 h-4" />
               </Button>
               <Input
-                placeholder="Nhập tin nhắn..."
+                placeholder="Type a message..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => {

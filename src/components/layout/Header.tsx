@@ -1,333 +1,323 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Bell, Sun, Moon, Globe } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, X, Home, User, Zap, Briefcase, Mail } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion, Variants, AnimatePresence } from 'framer-motion';
+
+interface MenuItem {
+  icon: React.ReactNode;
+  label: string;
+  href: string;
+  gradient: string;
+  iconColor: string;
+}
+
+const menuItems: MenuItem[] = [
+  {
+    icon: <Home className="h-5 w-5" />,
+    label: "HOME",
+    href: "#home",
+    gradient: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+    iconColor: "group-hover:text-blue-500 dark:group-hover:text-blue-400",
+  },
+  {
+    icon: <User className="h-5 w-5" />,
+    label: "ABOUT",
+    href: "#about",
+    gradient: "radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)",
+    iconColor: "group-hover:text-orange-500 dark:group-hover:text-orange-400",
+  },
+  {
+    icon: <Zap className="h-5 w-5" />,
+    label: "SKILLS",
+    href: "#skills",
+    gradient: "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
+    iconColor: "group-hover:text-green-500 dark:group-hover:text-green-400",
+  },
+  {
+    icon: <Briefcase className="h-5 w-5" />,
+    label: "PROJECTS",
+    href: "#projects",
+    gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
+    iconColor: "group-hover:text-red-500 dark:group-hover:text-red-400",
+  },
+  {
+    icon: <Mail className="h-5 w-5" />,
+    label: "CONTACT",
+    href: "#contact",
+    gradient: "radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(147,51,234,0.06) 50%, rgba(126,34,206,0) 100%)",
+    iconColor: "group-hover:text-purple-500 dark:group-hover:text-purple-400",
+  },
+];
+
+// Animation variants
+const itemVariants: Variants = {
+  initial: { rotateX: 0, opacity: 1 },
+  hover: { rotateX: -90, opacity: 0 },
+};
+
+const backVariants: Variants = {
+  initial: { rotateX: 90, opacity: 0 },
+  hover: { rotateX: 0, opacity: 1 },
+};
+
+const glowVariants: Variants = {
+  initial: { opacity: 0, scale: 0.8 },
+  hover: {
+    opacity: 1,
+    scale: 2,
+    transition: {
+      opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+      scale: { duration: 0.5, type: "spring", stiffness: 300, damping: 25 },
+    },
+  },
+};
+
+const navGlowVariants: Variants = {
+  initial: { opacity: 0 },
+  hover: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};
+
+const sharedTransition = {
+  type: "spring" as const,
+  stiffness: 100,
+  damping: 20,
+  duration: 0.5,
+};
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState("vi");
+  const [activeSection, setActiveSection] = useState("home");
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      if (location.pathname === '/') {
+        const sections = menuItems.map(item => item.href.substring(1));
+        const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const { offsetTop, offsetHeight } = element;
+            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+              setActiveSection(section);
+            }
+          }
+        }
+      }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (location.pathname === '/') {
+        // Initial check
+        handleScroll();
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+        // Map routes to sections
+        if (location.pathname.includes('/gioi-thieu/ky-nang')) setActiveSection('skills');
+        else if (location.pathname.includes('/gioi-thieu/du-an')) setActiveSection('projects');
+        else if (location.pathname.includes('/lien-he')) setActiveSection('contact');
+        else if (location.pathname.includes('/gioi-thieu')) setActiveSection('about');
+        else setActiveSection('');
+    }
   }, [location.pathname]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark");
-  };
-
-  const navItems = [
-    { label: "Trang chủ", href: "/" },
-    {
-      label: "Giới thiệu về Phú",
-      isDropdown: true,
-      items: [
-        { label: "Kỹ Năng", href: "/gioi-thieu/ky-nang" },
-        // { label: "Học Vấn", href: "/gioi-thieu/hoc-van" },
-        { label: "Dự án tiêu biểu", href: "/gioi-thieu/du-an" },
-      ],
-    },
-    { label: "Ninja AI", href: "/chuong-trinh/ninja-ai" },
-    { label: "Sự kiện", href: "/su-kien" },
-    { label: "Tin tức", href: "/tin-tuc" },
-    { label: "Liên hệ", href: "/lien-he" },
-  ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-md"
-          : "bg-transparent"
-      }`}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
+      )}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo & Brand */}
-          <Link
-            to="/"
-            className="flex items-center space-x-3 font-poppins font-bold text-xl text-primary hover:text-primary-light transition-colors"
+      <div className="container mx-auto px-6 lg:px-12 relative flex justify-center">
+        
+        {/* Desktop Navigation - MenuBar Style */}
+        <div className="hidden lg:block">
+          <motion.nav
+            className="flex items-center gap-4 p-2 pl-6 rounded-2xl bg-white/10 dark:bg-black/60 backdrop-blur-lg border border-white/10 shadow-lg relative overflow-hidden"
+            initial="initial"
+            whileHover="hover"
           >
-            <img
-              src="/favicon.png"
-              alt="Logo"
-              className="w-8 h-8 rounded-lg object-cover"
+            <motion.div
+              className="absolute -inset-2 rounded-3xl z-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(147,51,234,0.1) 50%, rgba(239,68,68,0.1) 100%)"
+              }}
+              variants={navGlowVariants}
             />
-          </Link>
+            
+            {/* Logo inside the pill */}
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <div key={index}>
-                {item.isDropdown ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium bg-transparent border-none cursor-pointer"
+
+            <ul className="flex items-center gap-2 relative z-10">
+                {menuItems.map((item: MenuItem) => {
+                  const isActive = activeSection === item.href.substring(1);
+                  return (
+                  <motion.li key={item.label} className="relative">
+                    <motion.div
+                      className="block rounded-xl overflow-visible group relative"
+                      style={{ perspective: "600px" }}
+                      whileHover="hover"
+                      initial="initial"
+                    >
+                      {/* Glow effect on hover */}
+                      <motion.div
+                        className="absolute inset-0 z-0 pointer-events-none rounded-2xl"
+                        variants={glowVariants}
+                        animate={isActive ? "hover" : "initial"}
+                        style={{
+                          background: item.gradient,
+                          opacity: isActive ? 1 : 0,
+                        }}
+                      />
+                      {/* Front-facing menu item */}
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (location.pathname !== '/') {
+                             window.location.href = '/' + item.href;
+                          } else {
+                              const element = document.querySelector(item.href);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth' });
+                              }
+                              setActiveSection(item.href.substring(1));
+                          }
+                        }}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
+                          isActive ? "text-white" : "text-gray-200 group-hover:text-white"
+                        )}
                       >
-                        <span>{item.label}</span>
-                        <ChevronDown className="w-4 h-4" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-card/95 backdrop-blur-md border border-border/50">
-                      {item.items?.map((subItem, subIndex) => (
-                        <DropdownMenuItem key={subIndex} asChild>
-                          <Link
-                            to={subItem.href}
-                            className="w-full text-foreground hover:text-primary transition-colors"
+                         <motion.div
+                           variants={itemVariants}
+                           transition={sharedTransition}
+                           style={{
+                             transformStyle: "preserve-3d",
+                             transformOrigin: "center bottom",
+                             display: "flex",
+                             alignItems: "center",
+                             gap: "0.5rem"
+                           }}
+                         >
+                            <span className={cn(
+                                "transition-colors duration-300", 
+                                isActive ? item.iconColor.replace(/group-hover:/g, '') : item.iconColor
+                            )}>
+                              {item.icon}
+                            </span>
+                            <span className="font-medium">{item.label}</span>
+                         </motion.div>
+                      </a>
+                      
+                       {/* Back-facing menu item for the 3D flip effect */}
+                       <a
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (location.pathname !== '/') {
+                             window.location.href = '/' + item.href;
+                          } else {
+                              const element = document.querySelector(item.href);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth' });
+                              }
+                              setActiveSection(item.href.substring(1));
+                          }
+                        }}
+                        className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+                      >
+                         <motion.div
+                            className={cn(
+                                "flex items-center gap-2 px-4 py-2 bg-transparent transition-colors rounded-xl text-gray-200 group-hover:text-white"
+                            )}
+                            variants={backVariants}
+                            transition={sharedTransition}
+                            style={{
+                              transformStyle: "preserve-3d",
+                              transformOrigin: "center top",
+                              transform: "rotateX(90deg)"
+                            }}
                           >
-                            {subItem.label}
-                          </Link>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <Link
-                    to={item.href}
-                    className={`text-foreground hover:text-primary transition-colors font-medium ${
-                      location.pathname === item.href
-                        ? "text-primary border-b-2 border-primary"
-                        : ""
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </div>
-            ))}
-          </nav>
-
-          {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="hidden sm:flex"
-            >
-              {isDarkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </Button>
-
-            {/* Language Toggle */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="hidden sm:flex items-center space-x-1"
-                >
-                  <span className="text-xs font-medium flex items-center gap-1">
-                    {language === "vi" ? (
-                      <>
-                        <img
-                          src="https://flagcdn.com/w20/vn.png"
-                          alt="VN"
-                          className="w-4 h-3 rounded-sm"
-                        />
-                        VI
-                      </>
-                    ) : (
-                      <>
-                        <img
-                          src="https://flagcdn.com/w20/us.png"
-                          alt="EN"
-                          className="w-4 h-3 rounded-sm"
-                        />
-                        EN
-                      </>
-                    )}
-                  </span>
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                align="end"
-                className="bg-emerald-700 text-white border-none rounded-md shadow-lg z-[9999]"
-              >
-                <DropdownMenuItem
-                  onClick={() => setLanguage("vi")}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-emerald-600"
-                >
-                  <img
-                    src="https://flagcdn.com/w20/vn.png"
-                    alt="VN"
-                    className="w-5 h-4 rounded-sm"
-                  />
-                  Tiếng Việt
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setLanguage("en")}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-emerald-600"
-                >
-                  <img
-                    src="https://flagcdn.com/w20/us.png"
-                    alt="EN"
-                    className="w-5 h-4 rounded-sm"
-                  />
-                  English
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Notifications */}
-            <DropdownMenu>
-
-              <DropdownMenuContent
-                align="end"
-                className="w-72 bg-white dark:bg-neutral-900 shadow-xl rounded-lg p-2 z-[9999]"
-              >
-                <div className="px-2 py-1 border-b border-gray-200 dark:border-gray-700">
-                  <p className="text-sm font-semibold text-emerald-600">
-                    Thông báo
-                  </p>
-                </div>
-
-                <DropdownMenuItem className="flex flex-col items-start gap-1 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-800 cursor-pointer">
-                  <p className="text-sm font-medium text-foreground">
-                    🚀 Sự kiện TTS Ninja AI sắp ra mắt
-                  </p>
-                  <span className="text-xs text-muted-foreground">
-                    Đăng ký liền tay, để trở thành đồng đội của chúng tôi!
-                  </span>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem className="flex flex-col items-start gap-1 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-800 cursor-pointer">
-                  <p className="text-sm font-medium text-foreground">
-                    📢 Rocket Global 2025
-                  </p>
-                  <span className="text-xs text-muted-foreground">
-                    Đăng ký trước 30/09 để giữ chỗ.
-                  </span>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem className="flex flex-col items-start gap-1 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-800 cursor-pointer">
-                  <p className="text-sm font-medium text-foreground">
-                    🎉 Ưu đãi đặc biệt hợp tác cùng IELTS Global
-                  </p>
-                  <span className="text-xs text-muted-foreground">
-                    Giảm ngay 30% cho học viên mới.
-                  </span>
-                </DropdownMenuItem>
-
-                <div className="px-2 py-1 border-t border-gray-200 dark:border-gray-700 text-center">
-                  <button className="text-xs text-emerald-600 hover:underline w-full">
-                    Xem tất cả thông báo
-                  </button>
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <style>
-              {`
-                  @keyframes breathe {
-                  0%, 100% { transform: scale(1); }
-                  50% { transform: scale(1.05); }
-                    }
-                     .animate-breathe {
-                      animation: breathe 1s ease-in-out infinite;
-                       }
-            `}
-            </style>
-
-            {/* Apply Now Button */}
-            <Link to="/lien-he#application-form" className="relative z-[9999]">
-              <Button
-                className="relative overflow-hidden bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 
-               text-white font-semibold shadow-lg shadow-emerald-500/40 
-               hover:scale-105 hover:shadow-emerald-600/50 
-               transition-all duration-300 ease-in-out px-6 py-2 rounded-full animate-breathe"
-              >
-                <span className="relative z-10 flex items-center gap-1">
-                  🚀 Apply Now
-                </span>
-
-                {/* Hiệu ứng ánh sáng quét ngang (nhẹ nhàng) */}
-                <span
-                  className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent 
-                     translate-x-[-100%] hover:translate-x-[100%] 
-                     transition-transform duration-1000 ease-in-out"
-                ></span>
-              </Button>
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="lg:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </Button>
-          </div>
+                            <span className={cn("transition-colors duration-300", item.iconColor)}>
+                              {item.icon}
+                            </span>
+                            <span className="font-medium">{item.label}</span>
+                          </motion.div>
+                      </a>
+                    </motion.div>
+                  </motion.li>
+                );
+                })}
+              </ul>
+          </motion.nav>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-16 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border/50 shadow-lg animate-fade-in-up">
-            <nav className="px-4 py-6 space-y-4">
-              {navItems.map((item, index) => (
-                <div key={index}>
-                  {item.isDropdown ? (
-                    <div>
-                      <div className="font-medium text-foreground mb-2">
-                        {item.label}
-                      </div>
-                      <div className="pl-4 space-y-2">
-                        {item.items?.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            to={subItem.href}
-                            className="block text-muted-foreground hover:text-primary transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      className="block font-medium text-foreground hover:text-primary transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </nav>
-          </div>
-        )}
+        {/* Mobile Menu Toggle (absolute positioned to right for consistency) */}
+        <button
+          className="lg:hidden absolute right-6 top-1/2 -translate-y-1/2 text-white p-2 focus:outline-none"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
+        </button>
       </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+            {isMobileMenuOpen && (
+            <motion.div 
+                initial={{ opacity: 0, x: "100%" }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: "100%" }}
+                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                className="fixed inset-0 z-40 bg-black flex flex-col pt-24 px-8 lg:hidden"
+            >
+                <nav className="flex flex-col space-y-6 items-center">
+                    {menuItems.map((item) => (
+                    <a
+                        key={item.label}
+                        href={item.href}
+                        className={cn(
+                        "text-xl font-medium py-3 w-full text-center hover:text-[#00ff84] transition-colors flex items-center justify-center gap-3",
+                        activeSection === item.href.substring(1) ? "text-[#00ff84]" : "text-white"
+                        )}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsMobileMenuOpen(false);
+                          
+                          if (location.pathname !== '/') {
+                             window.location.href = '/' + item.href;
+                          } else {
+                              const element = document.querySelector(item.href);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth' });
+                              }
+                              setActiveSection(item.href.substring(1));
+                          }
+                        }}
+                    >
+                        {item.icon}
+                        {item.label}
+                    </a>
+                    ))}
+                </nav>
+            </motion.div>
+            )}
+        </AnimatePresence>
     </header>
   );
 };
