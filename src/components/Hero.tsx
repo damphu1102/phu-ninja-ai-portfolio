@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 
 
 const Hero = () => {
@@ -160,6 +160,26 @@ const Hero = () => {
               >
                 Contact Me
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
+              <a 
+                href="/cv/DamHuuPhu_CV.pdf" 
+                download
+                className="flex items-center justify-center group w-full sm:w-auto text-center transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:-translate-y-1" 
+                style={{
+                  backgroundColor: 'transparent',
+                  borderRadius: '1440px',
+                  boxSizing: 'border-box',
+                  color: '#ffffff',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  padding: '16px 32px',
+                  border: '2px solid rgba(255,255,255,0.3)',
+                }}
+              >
+                <Download className="mr-2 w-5 h-5" />
+                Download CV
               </a>
             </div>
           </div>

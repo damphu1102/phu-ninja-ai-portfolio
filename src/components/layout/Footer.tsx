@@ -4,6 +4,8 @@ const Footer = () => {
   const navLinks = [
     { name: "HOME", href: "#home" },
     { name: "ABOUT", href: "#about" },
+    { name: "EXPERIENCE", href: "#experience" },
+    { name: "EDUCATION", href: "#education" },
     { name: "SKILLS", href: "#skills" },
     { name: "PROJECTS", href: "#projects" },
     { name: "CONTACT", href: "#contact" },
@@ -26,29 +28,32 @@ const Footer = () => {
               "Transforming vision into superior web solutions, elevating experiences and optimizing business results."
             </p>
             
-            {/* Social Icons */}
+            {/* Social Icons - Update these URLs with your actual profiles */}
             <div className="flex gap-4 pt-2">
               <a
-                href="https://www.facebook.com/"
+                href="https://www.facebook.com/damphu207" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-[#052e16] flex items-center justify-center text-[#00ff84] hover:bg-[#00ff84] hover:text-black transition-all duration-300"
+                title="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/damphu1102"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-[#052e16] flex items-center justify-center text-[#00ff84] hover:bg-[#00ff84] hover:text-black transition-all duration-300"
+                title="GitHub"
               >
                 <Github className="w-5 h-5" />
               </a>
               <a
-                href="https://linkedin.com/"
+                href="https://linkedin.com/in/damphu207"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-[#052e16] flex items-center justify-center text-[#00ff84] hover:bg-[#00ff84] hover:text-black transition-all duration-300"
+                title="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>

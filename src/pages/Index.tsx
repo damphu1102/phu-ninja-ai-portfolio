@@ -15,12 +15,11 @@ import {
   Phone,
 } from "lucide-react";
 import Hero from "@/components/Hero";
-
 import SkillsSection from "@/components/SkillsSection";
-
 import ProjectsSection from "@/components/ProjectsSection";
-
 import ContactSection from "@/components/ContactSection";
+import ExperienceSection from "@/components/ExperienceSection";
+import EducationSection from "@/components/EducationSection";
 
 const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -132,6 +131,12 @@ const Index = () => {
              </div>
          </div>
       </section>
+
+      {/* Experience Section */}
+      <ExperienceSection />
+
+      {/* Education Section */}
+      <EducationSection />
 
       {/* Skills Section */}
       <SkillsSection />

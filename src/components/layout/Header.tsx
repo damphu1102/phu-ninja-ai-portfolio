@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, User, Zap, Briefcase, Mail } from "lucide-react";
+import { Menu, X, Home, User, Zap, Briefcase, Mail, Clock, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 
@@ -26,6 +26,20 @@ const menuItems: MenuItem[] = [
     href: "#about",
     gradient: "radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)",
     iconColor: "group-hover:text-orange-500 dark:group-hover:text-orange-400",
+  },
+  {
+    icon: <Clock className="h-5 w-5" />,
+    label: "EXPERIENCE",
+    href: "#experience",
+    gradient: "radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(219,39,119,0.06) 50%, rgba(190,24,93,0) 100%)",
+    iconColor: "group-hover:text-pink-500 dark:group-hover:text-pink-400",
+  },
+  {
+    icon: <GraduationCap className="h-5 w-5" />,
+    label: "EDUCATION",
+    href: "#education",
+    gradient: "radial-gradient(circle, rgba(14,165,233,0.15) 0%, rgba(2,132,199,0.06) 50%, rgba(3,105,161,0) 100%)",
+    iconColor: "group-hover:text-sky-500 dark:group-hover:text-sky-400",
   },
   {
     icon: <Zap className="h-5 w-5" />,
