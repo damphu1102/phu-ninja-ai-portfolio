@@ -144,11 +144,6 @@ const Skills = () => {
           icon: <SiRedis className="text-red-500" />,
         },
         {
-          name: "Supabase",
-          level: 70,
-          icon: <Database className="text-green-400" />,
-        },
-        {
           name: "Firebase",
           level: 60,
           icon: <SiFirebase className="text-yellow-500" />,

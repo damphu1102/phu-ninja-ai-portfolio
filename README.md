@@ -25,7 +25,6 @@ Dự án được xây dựng dựa trên nền tảng vững chắc của các 
   - [Shadcn UI](https://ui.shadcn.com/) - Bộ component UI chất lượng cao.
   - [Radix UI](https://www.radix-ui.com/) - Headless UI primitives.
 - **State Management & Data Fetching**: [TanStack Query](https://tanstack.com/query/latest) (React Query).
-- **Backend / Database**: [Supabase](https://supabase.com/).
 - **Animation**: [Framer Motion](https://www.framer.com/motion/), [Lottie React](https://lottiefiles.com/).
 - **Forms**: [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/) (Validation).
 - **Icons**: [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/).
@@ -48,7 +47,7 @@ Dự án được xây dựng dựa trên nền tảng vững chắc của các 
    ```
 
 3. **Cấu hình biến môi trường**:
-   Tạo file `.env` ở thư mục gốc (nếu cần) và cấu hình các key kết nối Supabase hoặc API khác.
+   Tạo file `.env` ở thư mục gốc (nếu cần) và cấu hình các API keys.
 
 4. **Khởi chạy ứng dụng**:
    ```bash
@@ -66,7 +65,6 @@ src/
 ├── pages/          # Các trang chính (Index, About, Contact, v.v.)
 ├── hooks/          # Custom Hooks
 ├── lib/            # Tiện ích bổ trợ (Utils)
-├── integrations/   # Tích hợp dịch vụ bên thứ 3 (Supabase)
 └── App.tsx         # Routing và cấu hình chính
 ```
 
