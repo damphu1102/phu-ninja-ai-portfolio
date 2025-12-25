@@ -127,8 +127,8 @@ const Hero = () => {
               className="font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight animate-fade-in mb-6 tracking-tight" 
               style={{ animationDelay: "0.3s" }}
             >
-              <span className="text-white block">FRONTEND</span>
-              <span className="text-[#00ff84] block">DEVELOPER</span>
+              <span className="text-white block">SOFTWARE</span>
+              <span className="text-[#00ff84] block">ENGINEER</span>
             </h1>
             
             <p 

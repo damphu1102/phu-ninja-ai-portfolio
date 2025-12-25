@@ -131,7 +131,7 @@ const SkillsSection = () => {
                   The <span className="text-[#00ff84]">UX-Focused</span> Developer
                 </h2>
                 <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-lg">
-                  A frontend developer dedicated to transforming UX/UI designs into fast, functional, and accessible code. Focused on performance, semantics, and creating seamless user interactions.
+                  A software engineer dedicated to transforming UX/UI designs into fast, functional, and accessible code. Focused on performance, semantics, and creating seamless user interactions.
                 </p>
             </div>
 

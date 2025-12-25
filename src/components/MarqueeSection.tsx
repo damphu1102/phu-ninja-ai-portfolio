@@ -9,7 +9,7 @@ const MarqueeSection = () => {
           Welcome to my portfolio <span className="ml-4 text-[#00ff84]">👋</span>
         </div>
         <div className="text-2xl md:text-3xl font-bold text-white uppercase tracking-wider flex items-center">
-          Frontend Developer <span className="ml-4 text-[#00ff84]">💻</span>
+          Software Engineer <span className="ml-4 text-[#00ff84]">💻</span>
         </div>
         <div className="text-2xl md:text-3xl font-bold text-white uppercase tracking-wider flex items-center">
           Creative Coder <span className="ml-4 text-[#00ff84]">🎨</span>

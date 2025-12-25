@@ -97,12 +97,12 @@ const Index = () => {
                      </div>
                      
                      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                         Frontend is experience, <br/>
+                         Engineering is experience, <br/>
                          <span className="text-gray-400">not just code</span>
                      </h2>
 
                      <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                         Frontend Developer specializing in ReactJS. Focused on building optimized, user-friendly digital interfaces from clean code to transform complex UX/UI designs into smooth and efficient web experiences.
+                         Software Engineer specializing in ReactJS. Focused on building optimized, user-friendly digital interfaces from clean code to transform complex UX/UI designs into smooth and efficient web experiences.
                      </p>
 
                      <div className="grid grid-cols-1 gap-4 space-y-2">
