@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Download } from "lucide-react";
+import ScrollIndicator from "@/components/ScrollIndicator";
 
 
 const Hero = () => {
@@ -211,6 +212,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <ScrollIndicator />
     </section>
   );
 };

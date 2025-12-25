@@ -235,8 +235,8 @@
 
   html {
     scroll-behavior: smooth;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -382,4 +382,45 @@
     transform: scale(1);
     /* filter: blur(0); */
   }
+
+  /* Section scroll offset for sticky header */
+  section[id] {
+    scroll-margin-top: 100px;
+  }
+
+  /* Improved text contrast - description text */
+  .text-description {
+    @apply text-gray-300;
+  }
+}
+
+/* Bounce animation for scroll indicator */
+@keyframes bounce-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+/* Mouse scroll wheel animation */
+@keyframes scroll-wheel {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.animate-scroll-wheel {
+  animation: scroll-wheel 1.5s ease-out infinite;
 }

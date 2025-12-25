@@ -157,7 +157,7 @@ const Header = () => {
         {/* Desktop Navigation - MenuBar Style */}
         <div className="hidden lg:block">
           <motion.nav
-            className="flex items-center gap-4 p-2 pl-6 rounded-2xl bg-white/10 dark:bg-black/60 backdrop-blur-lg border border-white/10 shadow-lg relative overflow-hidden"
+            className="flex items-center gap-2 p-2 pl-4 rounded-2xl bg-white/10 dark:bg-black/60 backdrop-blur-lg border border-white/10 shadow-lg relative overflow-hidden"
             initial="initial"
             whileHover="hover"
           >
@@ -172,7 +172,7 @@ const Header = () => {
             {/* Logo inside the pill */}
 
 
-            <ul className="flex items-center gap-2 relative z-10">
+            <ul className="flex items-center gap-1 relative z-10">
                 {menuItems.map((item: MenuItem) => {
                   const isActive = activeSection === item.href.substring(1);
                   return (
@@ -209,7 +209,7 @@ const Header = () => {
                           }
                         }}
                         className={cn(
-                          "flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
+                          "flex items-center gap-1.5 px-3 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
                           isActive ? "text-white" : "text-gray-200 group-hover:text-white"
                         )}
                       >

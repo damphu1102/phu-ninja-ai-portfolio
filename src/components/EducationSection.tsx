@@ -82,7 +82,7 @@ const EducationSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
             Academic <span className="text-[#00ff84]">Background</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-lg">
+          <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
             My educational journey and professional certifications that have shaped my expertise.
           </p>
         </div>
@@ -122,7 +122,7 @@ const EducationSection = () => {
                         )}
                       </div>
                       
-                      <p className="text-gray-400 text-sm leading-relaxed">
+                      <p className="text-gray-300 text-sm leading-relaxed">
                         {edu.description}
                       </p>
                     </div>

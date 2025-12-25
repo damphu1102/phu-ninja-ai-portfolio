@@ -77,15 +77,15 @@ const ExperienceSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
             My <span className="text-[#00ff84]">Professional</span> Journey
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-lg">
+          <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
             A timeline of my career development and the valuable experiences I've gained along the way.
           </p>
         </div>
 
         {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-4xl mx-auto pl-6 md:pl-0">
           {/* Vertical Line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#00ff84] via-[#00ff84]/50 to-transparent md:-translate-x-1/2"></div>
+          <div className="absolute left-2 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#00ff84] via-[#00ff84]/50 to-transparent md:-translate-x-1/2"></div>
 
           {experiences.map((exp, index) => (
             <div
@@ -128,7 +128,7 @@ const ExperienceSection = () => {
                   {/* Description */}
                   <ul className="space-y-2 mb-4">
                     {exp.description.map((item, i) => (
-                      <li key={i} className="text-gray-400 text-sm flex items-start gap-2">
+                      <li key={i} className="text-gray-300 text-sm flex items-start gap-2">
                         <span className="text-[#00ff84] mt-1.5">•</span>
                         {item}
                       </li>
