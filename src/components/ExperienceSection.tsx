@@ -15,49 +15,49 @@ interface Experience {
 const ExperienceSection = () => {
   const experiences: Experience[] = [
     {
-      id: "ninja-ai",
-      company: "Ninja AI",
-      position: "Frontend Developer Intern",
+      id: "rocket-global-edusystem",
+      company: "Rocket Global (Ninja AI Intern)",
+      position: "Frontend Developer - Edusystem Project",
       location: "Hanoi, Vietnam",
-      startDate: "Jan 2024",
-      endDate: "Present",
+      startDate: "Jun 2025",
+      endDate: "Aug 2025",
       description: [
-        "Developed and maintained responsive web applications using ReactJS and TypeScript",
-        "Collaborated with UI/UX designers to implement pixel-perfect designs",
-        "Optimized application performance and improved page load times by 40%",
-        "Participated in code reviews and contributed to team best practices"
+        "Developed a role-based educational platform, translating complex Figma designs into pixel-perfect, responsive React components for over 20+ screens.",
+        "Implemented real-time notifications for course updates and assignments using WebSockets.",
+        "Optimized frontend asset delivery, contributing to a 30% reduction in initial page load time.",
+        "Integrated RESTful APIs using Axios and managed complex global application state with Redux Toolkit."
       ],
-      technologies: ["ReactJS", "TypeScript", "Tailwind CSS", "Git"]
+      technologies: ["ReactJS", "TypeScript", "Tailwind CSS", "Redux Toolkit", "WebSockets"]
     },
     {
-      id: "freelance",
-      company: "Freelance",
-      position: "Web Developer",
-      location: "Remote",
-      startDate: "Jun 2023",
-      endDate: "Dec 2023",
+      id: "rocket-global-crm",
+      company: "Rocket Global (Ninja AI Intern)",
+      position: "Frontend Developer - CRM Project",
+      location: "Hanoi, Vietnam",
+      startDate: "Aug 2025",
+      endDate: "Oct 2025",
       description: [
-        "Built custom websites for small businesses and startups",
-        "Implemented responsive designs and cross-browser compatibility",
-        "Integrated third-party APIs and payment gateways",
-        "Provided ongoing maintenance and support for clients"
+        "Engineered core modules for a scalable Customer Relationship Management (CRM) dashboard, handling large datasets of user interactions.",
+        "Integrated Chart.js to render interactive, high-performance data visualizations and dynamic reporting metrics.",
+        "Developed robust, multi-step forms with advanced validation using React Hook Form and Zod, ensuring 100% data integrity.",
+        "Collaborated closely with backend engineers via Postman and Swagger to define API contracts in a daily Agile/Scrum environment."
       ],
-      technologies: ["HTML/CSS", "JavaScript", "ReactJS", "WordPress"]
+      technologies: ["ReactJS", "TypeScript", "Tailwind CSS", "Chart.js", "React Hook Form", "Zod"]
     },
     {
-      id: "personal-projects",
-      company: "Personal Projects",
-      position: "Self-taught Developer",
+      id: "rocket-global-dms",
+      company: "Rocket Global (Ninja AI Intern)",
+      position: "Mobile Developer - DMS Project",
       location: "Hanoi, Vietnam",
-      startDate: "Jan 2022",
-      endDate: "May 2023",
+      startDate: "Oct 2025",
+      endDate: "Dec 2025",
       description: [
-        "Completed multiple online courses on web development",
-        "Built portfolio projects to practice new technologies",
-        "Contributed to open-source projects on GitHub",
-        "Learned best practices for clean code and software architecture"
+        "Developed features for a mobile Distribution Management System (DMS) application tailored for warehouse and inventory tracking.",
+        "Implemented barcode scanning functionalities and real-time inventory updates for warehouse staff.",
+        "Built intuitive and responsive mobile interfaces ensuring high usability in fast-paced warehouse environments.",
+        "Optimized mobile app performance, handling offline data synchronization and seamless API integration."
       ],
-      technologies: ["JavaScript", "ReactJS", "Node.js", "MongoDB"]
+      technologies: ["React Native", "Expo", "TypeScript", "Redux", "RESTful APIs", "Mobile UI"]
     }
   ];
 

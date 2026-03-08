@@ -64,14 +64,14 @@ const ContactSection = () => {
                          {/* Zalo Button (User Preference) */}
                          <div 
                             className="flex items-center gap-6 group cursor-pointer hover:translate-x-2 transition-transform duration-300"
-                            onClick={() => window.open("https://zalo.me/0785708631", "_blank")}
+                            onClick={() => window.open("https://zalo.me/0397706411", "_blank")}
                         >
                             <div className="w-14 h-14 rounded-full bg-[#00ff84]/10 flex items-center justify-center border border-[#00ff84]/20 group-hover:border-[#00ff84] group-hover:bg-[#00ff84] transition-all duration-300">
                                 <MessageCircle className="w-6 h-6 text-[#00ff84] group-hover:text-black transition-colors" />
                             </div>
                             <div>
-                                <p className="text-gray-400 text-sm mb-1">Chat on Zalo</p>
-                                <p className="text-white font-medium text-lg">Click to connect</p>
+                                <p className="text-gray-400 text-sm mb-1">Instant Messaging</p>
+                                <p className="text-white font-medium text-lg">Chat on Zalo</p>
                             </div>
                         </div>
                     </div>

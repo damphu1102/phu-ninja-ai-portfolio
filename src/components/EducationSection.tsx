@@ -4,6 +4,7 @@ import { GraduationCap, Award, Calendar, ExternalLink } from "lucide-react";
 interface Education {
   id: string;
   institution: string;
+  institutionUrl?: string;
   degree: string;
   field: string;
   startDate: string;
@@ -19,13 +20,15 @@ interface Certification {
   date: string;
   credentialUrl?: string;
   logo?: string;
+  description?: string;
 }
 
 const EducationSection = () => {
   const education: Education[] = [
     {
       id: "university",
-      institution: "Hanoi University of Science and Technology",
+      institution: "University of Technology and Management (UTM)",
+      institutionUrl: "https://utm.edu.vn/",
       degree: "Bachelor's Degree",
       field: "Information Technology",
       startDate: "2021",
@@ -37,32 +40,12 @@ const EducationSection = () => {
 
   const certifications: Certification[] = [
     {
-      id: "meta-frontend",
-      name: "Meta Frontend Developer Professional Certificate",
-      issuer: "Meta (Coursera)",
-      date: "Dec 2023",
-      credentialUrl: "#"
-    },
-    {
-      id: "react-advanced",
-      name: "Advanced React Patterns",
-      issuer: "Frontend Masters",
-      date: "Oct 2023",
-      credentialUrl: "#"
-    },
-    {
-      id: "javascript-algo",
-      name: "JavaScript Algorithms and Data Structures",
-      issuer: "freeCodeCamp",
-      date: "Aug 2023",
-      credentialUrl: "#"
-    },
-    {
-      id: "responsive-web",
-      name: "Responsive Web Design",
-      issuer: "freeCodeCamp",
-      date: "Jun 2023",
-      credentialUrl: "#"
+      id: "vti-enterprise-passport",
+      name: "Enterprise Passport For Developer",
+      issuer: "VTI Academy",
+      date: "Nov 2024",
+      credentialUrl: "https://vtiacademy.edu.vn/",
+      description: "Successfully completed an intensive corporate software development training program. Acquired enterprise-level skills in Agile/Scrum methodologies, code quality standards, and real-world project workflows."
     }
   ];
 
@@ -110,7 +93,20 @@ const EducationSection = () => {
                         {edu.degree}
                       </h4>
                       <p className="text-[#00ff84] font-medium mb-2">{edu.field}</p>
-                      <p className="text-gray-400 text-sm mb-3">{edu.institution}</p>
+                      
+                      {edu.institutionUrl ? (
+                        <a 
+                          href={edu.institutionUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-gray-400 text-sm mb-3 inline-flex items-center gap-1 hover:text-[#00ff84] transition-colors"
+                        >
+                          {edu.institution}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <p className="text-gray-400 text-sm mb-3">{edu.institution}</p>
+                      )}
                       
                       <div className="flex flex-wrap gap-4 mb-3 text-sm text-gray-400">
                         <span className="flex items-center gap-1">
@@ -156,7 +152,12 @@ const EducationSection = () => {
                           {cert.name}
                         </h4>
                         <p className="text-gray-400 text-sm">{cert.issuer}</p>
-                        <p className="text-gray-500 text-xs mt-1">{cert.date}</p>
+                        <p className="text-[#00ff84]/80 text-xs mt-1 font-medium">{cert.date}</p>
+                        {cert.description && (
+                          <p className="text-gray-300 text-sm mt-3 leading-relaxed">
+                            {cert.description}
+                          </p>
+                        )}
                       </div>
                     </div>
                     
