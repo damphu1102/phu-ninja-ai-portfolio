@@ -27,7 +27,7 @@ const ProjectsSection = () => {
       id: "edu-ai",
       title: "EduAI - Educational Platform",
       description:
-        "A role-based educational platform translating complex Figma designs into pixel-perfect, responsive React components for 20+ screens. Features real-time notifications via WebSockets, RESTful API integration with Axios, and global state management with Redux Toolkit.",
+        "An intelligent e-learning platform where students and teachers connect in one unified workspace. Supports course management, live announcements, and personalized dashboards — making online education feel as natural as being in the classroom.",
       image:
         "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80&w=800",
       techStack: ["ReactJS", "TypeScript", "Tailwind CSS", "Redux Toolkit", "WebSockets"],
@@ -37,7 +37,7 @@ const ProjectsSection = () => {
       id: "crm-system",
       title: "CRM System - Customer Management",
       description:
-        "Scalable Customer Relationship Management dashboard handling large datasets of user interactions. Features interactive Chart.js data visualizations, multi-step forms with React Hook Form & Zod validation, and Agile/Scrum API collaboration with Swagger integration.",
+        "A powerful business dashboard that turns raw customer data into clear, actionable insights. Visualize sales funnels, track leads, and manage relationships all from one clean interface — built for teams that move fast and need data they can trust.",
       image:
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
       techStack: ["ReactJS", "TypeScript", "Tailwind CSS", "Chart.js", "React Hook Form", "Zod"],
@@ -47,7 +47,7 @@ const ProjectsSection = () => {
       id: "dms",
       title: "DMS - Distribution Management System",
       description:
-        "Mobile Distribution Management System for warehouse and inventory tracking. Implements barcode scanning, real-time inventory updates, offline data synchronization, and intuitive mobile interfaces optimized for fast-paced warehouse environments.",
+        "A mobile-first app designed to bring order to the chaos of supply chain operations. From tracking shipments to managing stock levels on the go, DMS gives field teams the real-time visibility they need — even without an internet connection.",
       image:
         "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
       techStack: ["React Native", "Expo", "TypeScript", "Redux", "RESTful APIs"],
