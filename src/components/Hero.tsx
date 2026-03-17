@@ -163,7 +163,7 @@ const Hero = () => {
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </a>
               <a 
-                href="/cv/DamHuuPhu_CV.pdf" 
+                href="/cv/DAM-HUU-PHU-TopCV.vn-090326.225438.pdf" 
                 download
                 className="flex items-center justify-center group w-full sm:w-auto text-center transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:-translate-y-1" 
                 style={{
